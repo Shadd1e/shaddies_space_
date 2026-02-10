@@ -1,27 +1,46 @@
+@import url("https://fonts.cdnfonts.com/css/asimovian");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+html,
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f8f7f4; /* soft cream */
+  color: #0a0a0a;
+  overflow-x: hidden;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+/* Asimovian utility for SHADDIES.SPACE only */
+.asimovian {
+  font-family: "Asimovian", monospace;
+  letter-spacing: 0.18em;
+}
+
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
   }
 }
+
+.animate-scroll {
+  animation: scroll 10s linear infinite;
+}
+
+.system-grid {
+  background-image:
+    linear-gradient(rgba(25,25,112,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(25,25,112,0.04) 1px, transparent 1px);
+  background-size: 80px 80px;
+}
+
+.glow-hover:hover {
+  box-shadow: 0 0 40px rgba(25,25,112,0.35);
+  transform: translateY(-4px) scale(1.01);
+}
+
