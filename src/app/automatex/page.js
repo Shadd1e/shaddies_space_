@@ -34,7 +34,7 @@ export default function AutomateXPage() {
           </p>
 
           <a
-            href="https://paystack.shop/pay/20a21send6"
+            href="https://flutterwave.com/pay/yvwxtd6npcip"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-block border border-[#191970] px-12 py-5 text-xl font-semibold hover:bg-[#191970] hover:text-white transition"
@@ -139,7 +139,7 @@ export default function AutomateXPage() {
           </h2>
 
           <a
-            href="https://paystack.shop/pay/20a21send6"
+            href="https://flutterwave.com/pay/yvwxtd6npcip"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-block border border-[#191970] px-12 py-5 text-xl font-semibold hover:bg-[#191970] hover:text-white transition"
