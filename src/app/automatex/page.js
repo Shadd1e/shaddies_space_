@@ -26,7 +26,7 @@ export default function AutomateXPage() {
           </p>
 
           <p className="text-lg text-black/70 mb-6">
-            March 2 – March 14 • Live on Google Meet • Recordings included
+            March 9 – March 21 • Live on Google Meet • Recordings included
           </p>
 
           <p className="text-2xl font-semibold mb-10">
