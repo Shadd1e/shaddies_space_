@@ -16,7 +16,7 @@ export default function SignlPage() {
         </p>
 
         <form
-          action="https://signs.shaddies.space/webhook/register"
+          action="https://signl.shaddies.space/webhook/register"
           method="POST"
           className="space-y-4"
         >
