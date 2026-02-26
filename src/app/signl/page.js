@@ -1,77 +1,80 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
+import { motion, AnimatePresence } from "framer-motion";
 import FlowBackground from "@/components/FlowBackground";
+import Link from "next/link";
 
 export default function SignlPage() {
   const searchParams = useSearchParams();
   const status = searchParams.get("status");
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center">
+    <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
       <FlowBackground />
 
-      <div className="relative z-10 max-w-md w-full bg-black/60 backdrop-blur rounded-xl p-8 text-white">
-        <h1 className="text-2xl font-bold mb-2">Signal Newsletter</h1>
-        <p className="text-sm opacity-80 mb-6">
-          Personalized updates delivered to your inbox.
-        </p>
+      <motion.div
+        initial={{ x: -80, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: 0.6 }}
+        className="relative z-10 max-w-md w-full bg-black/60 backdrop-blur-xl rounded-2xl p-8 text-white shadow-2xl"
+      >
+        <h1 className="text-3xl font-bold mb-6">Signal Control</h1>
 
-        {/* Status Messages */}
-        {status === "success" && (
-          <div className="mb-4 text-sm bg-green-600/20 border border-green-500/40 p-3 rounded">
-            Subscription successful.
-          </div>
-        )}
+        {/* Popup Notifications */}
+        <AnimatePresence>
+          {status && (
+            <motion.div
+              initial={{ y: -40, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: -40, opacity: 0 }}
+              transition={{ duration: 0.4 }}
+              className={`mb-6 p-3 rounded-lg text-sm text-center ${
+                status === "success"
+                  ? "bg-green-600/20 border border-green-500/40"
+                  : status === "deactivated"
+                  ? "bg-red-600/20 border border-red-500/40"
+                  : status === "updated"
+                  ? "bg-blue-600/20 border border-blue-500/40"
+                  : "bg-white/10"
+              }`}
+            >
+              {status === "success" && "Registration successful."}
+              {status === "deactivated" && "Subscription deactivated."}
+              {status === "updated" && "Preferences updated."}
+            </motion.div>
+          )}
+        </AnimatePresence>
 
-        {status === "updated" && (
-          <div className="mb-4 text-sm bg-blue-600/20 border border-blue-500/40 p-3 rounded">
-            Details updated successfully.
-          </div>
-        )}
-
-        {status === "deactivated" && (
-          <div className="mb-4 text-sm bg-red-600/20 border border-red-500/40 p-3 rounded">
-            Deactivated successfully. You may subscribe again below.
-          </div>
-        )}
-
+        {/* Update Form */}
         <form
-          action="https://signl.shaddies.space/webhook/register"
+          action="https://signl.shaddies.space/webhook/update"
           method="POST"
-          className="space-y-4"
+          className="space-y-4 mb-6"
         >
-          <input
-            name="name"
-            placeholder="Your name"
-            required
-            className="w-full p-3 rounded bg-black/40 border border-white/20"
-          />
-
           <input
             name="email"
             type="email"
-            placeholder="Email address"
+            placeholder="Your email"
             required
-            className="w-full p-3 rounded bg-black/40 border border-white/20"
+            className="w-full p-3 rounded-lg bg-black/40 border border-white/20"
           />
 
           <input
             name="niche"
-            placeholder="Your field (e.g. tech)"
-            className="w-full p-3 rounded bg-black/40 border border-white/20"
+            placeholder="Update niche"
+            className="w-full p-3 rounded-lg bg-black/40 border border-white/20"
           />
 
           <input
             name="keywords"
-            placeholder="Topics (AI, startups, etc)"
-            className="w-full p-3 rounded bg-black/40 border border-white/20"
+            placeholder="Update keywords"
+            className="w-full p-3 rounded-lg bg-black/40 border border-white/20"
           />
 
           <select
             name="frequency_hours"
-            defaultValue="24"
-            className="w-full p-3 rounded bg-black/40 border border-white/20"
+            className="w-full p-3 rounded-lg bg-black/40 border border-white/20"
           >
             <option value="12">Twice daily</option>
             <option value="24">Daily</option>
@@ -81,12 +84,20 @@ export default function SignlPage() {
 
           <button
             type="submit"
-            className="w-full bg-white text-black py-3 rounded font-semibold"
+            className="w-full bg-white text-black py-3 rounded-lg font-semibold transition hover:scale-[1.02]"
           >
-            Join Signal
+            Update Preferences
           </button>
         </form>
-      </div>
+
+        {/* Deactivate */}
+        <div className="text-center text-sm opacity-70">
+          Want to register instead?{" "}
+          <Link href="/signl/register" className="underline hover:opacity-100">
+            Join Signal
+          </Link>
+        </div>
+      </motion.div>
     </div>
   );
 }
