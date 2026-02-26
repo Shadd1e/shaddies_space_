@@ -3,6 +3,7 @@
 import { useState } from "react";
 import FlowBackground from "@/components/FlowBackground";
 import { motion } from "framer-motion";
+import { sendToBackend } from "@/lib/apiWrapper";
 
 export default function RegisterPage() {
   const [loading, setLoading] = useState(false);
@@ -12,17 +13,16 @@ export default function RegisterPage() {
     setLoading(true);
 
     const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData.entries()); // Convert FormData to JSON object
 
-    const res = await fetch("/api/register", {
-      method: "POST",
-      body: formData,
-    });
-
-    if (res.ok) {
+    try {
+      await sendToBackend("/api/register", data);
       window.location.href = "/signl?status=success";
-    } else {
+    } catch (error) {
+      console.error(error);
+      alert("Registration failed: " + error.message);
+    } finally {
       setLoading(false);
-      alert("Registration failed.");
     }
   };
 
