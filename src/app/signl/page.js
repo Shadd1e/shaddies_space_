@@ -1,10 +1,12 @@
-// src/app/signl/page.js
-
 "use client";
 
+import { useSearchParams } from "next/navigation";
 import FlowBackground from "@/components/FlowBackground";
 
 export default function SignlPage() {
+  const searchParams = useSearchParams();
+  const status = searchParams.get("status");
+
   return (
     <div className="relative min-h-screen flex items-center justify-center">
       <FlowBackground />
@@ -14,6 +16,25 @@ export default function SignlPage() {
         <p className="text-sm opacity-80 mb-6">
           Personalized updates delivered to your inbox.
         </p>
+
+        {/* Status Messages */}
+        {status === "success" && (
+          <div className="mb-4 text-sm bg-green-600/20 border border-green-500/40 p-3 rounded">
+            Subscription successful.
+          </div>
+        )}
+
+        {status === "updated" && (
+          <div className="mb-4 text-sm bg-blue-600/20 border border-blue-500/40 p-3 rounded">
+            Details updated successfully.
+          </div>
+        )}
+
+        {status === "deactivated" && (
+          <div className="mb-4 text-sm bg-red-600/20 border border-red-500/40 p-3 rounded">
+            Deactivated successfully. You may subscribe again below.
+          </div>
+        )}
 
         <form
           action="https://signl.shaddies.space/webhook/register"
@@ -47,11 +68,10 @@ export default function SignlPage() {
             className="w-full p-3 rounded bg-black/40 border border-white/20"
           />
 
-          {/* Daily by default */}
           <select
             name="frequency_hours"
-            className="w-full p-3 rounded bg-black/40 border border-white/20"
             defaultValue="24"
+            className="w-full p-3 rounded bg-black/40 border border-white/20"
           >
             <option value="12">Twice daily</option>
             <option value="24">Daily</option>
