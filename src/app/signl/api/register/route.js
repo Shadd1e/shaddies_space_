@@ -1,40 +1,31 @@
 export async function POST(req) {
   try {
-    let body;
-
-    const contentType = req.headers.get("content-type");
-
-    if (contentType?.includes("application/json")) {
-      body = await req.json();
-    } else {
-      const formData = await req.formData();
-      body = Object.fromEntries(formData.entries());
-    }
+    const body = await req.json();
+    console.log("Incoming body:", body);
 
     const response = await fetch(
       "https://signl.shaddies.space/webhook/register",
       {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
       }
     );
 
-    if (!response.ok) {
-      return new Response(JSON.stringify({ success: false }), {
-        status: 500,
-      });
-    }
+    console.log("n8n status:", response.status);
 
-    return new Response(JSON.stringify({ success: true }), {
-      status: 200,
-    });
+    const text = await response.text();
+    console.log("n8n response:", text);
+
+    return new Response(
+      JSON.stringify({ success: response.ok }),
+      { status: response.ok ? 200 : 500 }
+    );
   } catch (error) {
-    console.error(error);
-    return new Response(JSON.stringify({ success: false }), {
-      status: 500,
-    });
+    console.error("API route error:", error);
+    return new Response(
+      JSON.stringify({ success: false }),
+      { status: 500 }
+    );
   }
 }
