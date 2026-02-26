@@ -1,28 +1,39 @@
 export async function POST(req) {
   try {
-    const body = await req.json();
-    console.log("Incoming body:", body);
+    let body;
+    const contentType = req.headers.get("content-type") || "";
+
+    if (contentType.includes("application/json")) {
+      body = await req.json();
+    } else {
+      const formData = await req.formData();
+      body = Object.fromEntries(formData.entries());
+    }
 
     const response = await fetch(
       "https://signl.shaddies.space/webhook/register",
       {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify(body),
       }
     );
 
-    console.log("n8n status:", response.status);
-
-    const text = await response.text();
-    console.log("n8n response:", text);
+    if (!response.ok) {
+      return new Response(
+        JSON.stringify({ success: false }),
+        { status: 500 }
+      );
+    }
 
     return new Response(
-      JSON.stringify({ success: response.ok }),
-      { status: response.ok ? 200 : 500 }
+      JSON.stringify({ success: true }),
+      { status: 200 }
     );
   } catch (error) {
-    console.error("API route error:", error);
+    console.error("API REGISTER ERROR:", error);
     return new Response(
       JSON.stringify({ success: false }),
       { status: 500 }
