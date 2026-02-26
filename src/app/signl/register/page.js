@@ -1,9 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
 import FlowBackground from "@/components/FlowBackground";
-import Link from "next/link";
+import { motion } from "framer-motion";
 
 export default function RegisterPage() {
   const [loading, setLoading] = useState(false);
@@ -13,57 +12,70 @@ export default function RegisterPage() {
     setLoading(true);
 
     const formData = new FormData(e.target);
-    const data = Object.fromEntries(formData);
 
-    try {
-      const res = await fetch("https://signl.shaddies.space/webhook/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
+    const res = await fetch("/api/register", {
+      method: "POST",
+      body: formData,
+    });
 
-      if (!res.ok) throw new Error("Server error");
-
-      // We read the custom JSON you set in n8n
-      const result = await res.json();
-
-      // If the JSON contains a redirectUrl, we go there
-      if (result.success && result.redirectUrl) {
-        window.location.href = result.redirectUrl;
-      } else {
-        // Fallback if the JSON structure is wrong
-        window.location.href = "/signl?status=success";
-      }
-    } catch (err) {
-      console.error(err);
+    if (res.ok) {
+      window.location.href = "/signl?status=success";
+    } else {
       setLoading(false);
-      alert("Registration failed. Ensure n8n has CORS headers enabled.");
+      alert("Registration failed.");
     }
   };
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <div className="relative min-h-screen flex items-center justify-center">
       <FlowBackground />
+
       <motion.div
-        initial={{ y: 80, opacity: 0 }}
+        initial={{ y: 60, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6 }}
         className="relative z-10 max-w-md w-full bg-black/60 backdrop-blur-xl rounded-2xl p-8 text-white shadow-2xl"
       >
-        <h1 className="text-3xl font-bold mb-2">Join Signal</h1>
+        <h1 className="text-3xl font-bold mb-4">Join Signal</h1>
+
         <form onSubmit={handleSubmit} className="space-y-4">
-          <input name="name" placeholder="Your name" required className="w-full p-3 rounded-lg bg-black/40 border border-white/20" />
-          <input name="email" type="email" placeholder="Email address" required className="w-full p-3 rounded-lg bg-black/40 border border-white/20" />
-          <input name="niche" placeholder="Your field" className="w-full p-3 rounded-lg bg-black/40 border border-white/20" />
-          <input name="keywords" placeholder="Topics" className="w-full p-3 rounded-lg bg-black/40 border border-white/20" />
-          <select name="frequency_hours" defaultValue="24" className="w-full p-3 rounded-lg bg-black/40 border border-white/20">
+          <input name="name" placeholder="Your name" required className="input" />
+          <input name="email" type="email" placeholder="Email" required className="input" />
+          <input name="niche" placeholder="Your field" className="input" />
+          <input name="keywords" placeholder="Topics (AI, startups...)" className="input" />
+
+          <select name="frequency_hours" defaultValue="24" className="input">
             <option value="12">Twice daily</option>
             <option value="24">Daily</option>
+            <option value="48">Every 2 days</option>
+            <option value="168">Weekly</option>
           </select>
-          <button type="submit" disabled={loading} className="w-full bg-white text-black py-3 rounded-lg font-semibold">
+
+          <button type="submit" disabled={loading} className="btn">
             {loading ? "Joining..." : "Join Signal"}
           </button>
         </form>
       </motion.div>
+
+      <style jsx>{`
+        .input {
+          width: 100%;
+          padding: 12px;
+          border-radius: 10px;
+          background: rgba(0, 0, 0, 0.4);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          color: white;
+        }
+
+        .btn {
+          width: 100%;
+          padding: 12px;
+          border-radius: 10px;
+          background: white;
+          color: black;
+          font-weight: 600;
+        }
+      `}</style>
     </div>
   );
 }
