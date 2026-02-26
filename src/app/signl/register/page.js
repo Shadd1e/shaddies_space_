@@ -12,27 +12,35 @@ export default function RegisterPage() {
     e.preventDefault();
     setLoading(true);
 
+    // Convert FormData to a standard JSON object
     const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData);
 
     try {
       const res = await fetch(
         "https://signl.shaddies.space/webhook/register",
         {
           method: "POST",
-          body: formData,
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
         }
       );
 
-      if (!res.ok) {
-        throw new Error("Request failed");
+      // If the browser blocks the response (CORS error), it skips this and goes to catch
+      if (res.ok) {
+        // Clear the response stream
+        await res.json();
+        // Force the redirect
+        window.location.href = "https://shaddies.space/signl";
+      } else {
+        throw new Error("Server error");
       }
-
-      // Redirect manually after success
-      window.location.href = "/signl?status=success";
     } catch (err) {
-      console.error(err);
+      console.error("Registration Error:", err);
       setLoading(false);
-      alert("Registration failed. Please try again.");
+      alert("Registration failed. Please check the console (F12) for CORS errors.");
     }
   };
 
