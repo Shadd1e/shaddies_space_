@@ -8,6 +8,34 @@ import Link from "next/link";
 export default function RegisterPage() {
   const [loading, setLoading] = useState(false);
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    const formData = new FormData(e.target);
+
+    try {
+      const res = await fetch(
+        "https://signl.shaddies.space/webhook/register",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      if (!res.ok) {
+        throw new Error("Request failed");
+      }
+
+      // Redirect manually after success
+      window.location.href = "/signl?status=success";
+    } catch (err) {
+      console.error(err);
+      setLoading(false);
+      alert("Registration failed. Please try again.");
+    }
+  };
+
   return (
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
       <FlowBackground />
@@ -23,17 +51,12 @@ export default function RegisterPage() {
           Curated intelligence, built around your interests.
         </p>
 
-        <form
-          action="https://signl.shaddies.space/webhook/register"
-          method="POST"
-          onSubmit={() => setLoading(true)}
-          className="space-y-4"
-        >
+        <form onSubmit={handleSubmit} className="space-y-4">
           <input
             name="name"
             placeholder="Your name"
             required
-            className="w-full p-3 rounded-lg bg-black/40 border border-white/20 focus:outline-none focus:border-white/40"
+            className="w-full p-3 rounded-lg bg-black/40 border border-white/20"
           />
 
           <input
@@ -41,7 +64,7 @@ export default function RegisterPage() {
             type="email"
             placeholder="Email address"
             required
-            className="w-full p-3 rounded-lg bg-black/40 border border-white/20 focus:outline-none focus:border-white/40"
+            className="w-full p-3 rounded-lg bg-black/40 border border-white/20"
           />
 
           <input
@@ -69,7 +92,8 @@ export default function RegisterPage() {
 
           <button
             type="submit"
-            className="w-full bg-white text-black py-3 rounded-lg font-semibold transition hover:scale-[1.02] active:scale-[0.98]"
+            disabled={loading}
+            className="w-full bg-white text-black py-3 rounded-lg font-semibold transition hover:scale-[1.02]"
           >
             {loading ? "Joining..." : "Join Signal"}
           </button>
