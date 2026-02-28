@@ -52,15 +52,15 @@ export default function SignlContent() {
               type="email"
               placeholder="Your registered email"
               required
-              className="input"
+              className="w-full p-3 rounded-lg bg-black/40 border border-white/20 text-white"
             />
             <input
               name="niche"
               placeholder="New field (e.g Technology)"
               required
-              className="input"
+              className="w-full p-3 rounded-lg bg-black/40 border border-white/20 text-white"
             />
-            <button type="submit" className="btn">
+            <button type="submit" className="w-full p-3 rounded-lg bg-white text-black font-semibold hover:opacity-90 transition">
               Update Field
             </button>
           </form>
@@ -77,15 +77,15 @@ export default function SignlContent() {
               type="email"
               placeholder="Your registered email"
               required
-              className="input"
+              className="w-full p-3 rounded-lg bg-black/40 border border-white/20 text-white"
             />
             <input
               name="keywords"
               placeholder="New keywords (AI, startups...)"
               required
-              className="input"
+              className="w-full p-3 rounded-lg bg-black/40 border border-white/20 text-white"
             />
-            <button type="submit" className="btn">
+            <button type="submit" className="w-full p-3 rounded-lg bg-white text-black font-semibold hover:opacity-90 transition">
               Update Keywords
             </button>
           </form>
@@ -102,19 +102,19 @@ export default function SignlContent() {
               type="email"
               placeholder="Your registered email"
               required
-              className="input"
+              className="w-full p-3 rounded-lg bg-black/40 border border-white/20 text-white"
             />
             <select
               name="frequency_hours"
               required
-              className="input"
+              className="w-full p-3 rounded-lg bg-black/40 border border-white/20 text-white"
             >
               <option value="12">Twice daily</option>
               <option value="24">Daily</option>
               <option value="48">Every 2 days</option>
               <option value="168">Weekly</option>
             </select>
-            <button type="submit" className="btn">
+            <button type="submit" className="w-full p-3 rounded-lg bg-white text-black font-semibold hover:opacity-90 transition">
               Update Frequency
             </button>
           </form>
@@ -131,9 +131,9 @@ export default function SignlContent() {
               type="email"
               placeholder="Your registered email"
               required
-              className="input"
+              className="w-full p-3 rounded-lg bg-black/40 border border-white/20 text-white"
             />
-            <button type="submit" className="btn bg-red-600 hover:bg-red-700">
+            <button type="submit" className="w-full p-3 rounded-lg bg-red-600 text-white font-semibold hover:opacity-90 transition">
               Deactivate
             </button>
           </form>
@@ -147,31 +147,7 @@ export default function SignlContent() {
             Privacy Policy
           </Link>
         </div>
-
       </motion.div>
-
-      <style jsx>{`
-        .input {
-          width: 100%;
-          padding: 12px;
-          border-radius: 10px;
-          background: rgba(0,0,0,0.4);
-          border: 1px solid rgba(255,255,255,0.2);
-          color: white;
-        }
-        .btn {
-          width: 100%;
-          padding: 12px;
-          border-radius: 10px;
-          background: white;
-          color: black;
-          font-weight: 600;
-          transition: 0.2s ease;
-        }
-        .btn:hover {
-          opacity: 0.9;
-        }
-      `}</style>
     </div>
   );
 }
