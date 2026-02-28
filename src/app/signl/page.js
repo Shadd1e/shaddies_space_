@@ -3,6 +3,7 @@
 import { useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import FlowBackground from "@/components/FlowBackground";
+import Link from "next/link";
 
 export default function Signl() {
   const searchParams = useSearchParams();
@@ -142,6 +143,17 @@ export default function Signl() {
             </button>
           </form>
         </SectionCard>
+
+        {/* LEGAL LINKS (ADDED ONLY) */}
+        <div className="pt-6 border-t border-white/10 text-sm text-white/70 flex justify-between">
+          <Link href="/signl/terms" className="hover:underline">
+            Terms of Service
+          </Link>
+          <Link href="/signl/privacy" className="hover:underline">
+            Privacy Policy
+          </Link>
+        </div>
+
       </motion.div>
 
       <style jsx>{`
