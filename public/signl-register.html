@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Signl Registration</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background: #1e293b;
+      padding: 40px;
+      border-radius: 8px;
+      width: 100%;
+      max-width: 420px;
+    }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 4px;
+      border: none;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #22c55e;
+      color: black;
+      font-weight: bold;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      opacity: 0.9;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Register for Signl</h2>
+
+    <form action="https://signl.shaddies.space/webhook/register" method="POST">
+
+      <input type="text" name="name" placeholder="Your Name" required />
+
+      <input type="email" name="email" placeholder="Your Email" required />
+
+      <input type="text" name="niche" placeholder="Your Niche (e.g Tech)" required />
+
+      <input type="text" name="keywords" placeholder="Keywords (e.g AI)" required />
+
+      <select name="frequency_hours" required>
+        <option value="">Select Delivery Frequency</option>
+        <option value="6">Every 6 Hours</option>
+        <option value="12">Every 12 Hours</option>
+        <option value="24">Every 24 Hours</option>
+        <option value="48">Every 48 Hours</option>
+      </select>
+
+      <button type="submit">Create My Signl</button>
+
+    </form>
+  </div>
+</body>
+</html>

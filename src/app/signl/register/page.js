@@ -1,31 +1,9 @@
 "use client";
 
-import { useState } from "react";
 import FlowBackground from "@/components/FlowBackground";
 import { motion } from "framer-motion";
-import { sendToBackend } from "@/lib/apiWrapper";
 
 export default function RegisterPage() {
-  const [loading, setLoading] = useState(false);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-
-    const formData = new FormData(e.target);
-    const data = Object.fromEntries(formData.entries()); // Convert FormData to JSON object
-
-    try {
-      await sendToBackend("/api/register", data);
-      window.location.href = "/signl?status=success";
-    } catch (error) {
-      console.error(error);
-      alert("Registration failed: " + error.message);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   return (
     <div className="relative min-h-screen flex items-center justify-center">
       <FlowBackground />
@@ -38,21 +16,51 @@ export default function RegisterPage() {
       >
         <h1 className="text-3xl font-bold mb-4">Join Signal</h1>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <input name="name" placeholder="Your name" required className="input" />
-          <input name="email" type="email" placeholder="Email" required className="input" />
-          <input name="niche" placeholder="Your field" className="input" />
-          <input name="keywords" placeholder="Topics (AI, startups...)" className="input" />
+        <form
+          action="https://signl.shaddies.space/webhook/register"
+          method="POST"
+          className="space-y-4"
+        >
+          <input
+            name="name"
+            placeholder="Your name"
+            required
+            className="input"
+          />
 
-          <select name="frequency_hours" defaultValue="24" className="input">
+          <input
+            name="email"
+            type="email"
+            placeholder="Email"
+            required
+            className="input"
+          />
+
+          <input
+            name="niche"
+            placeholder="Your field"
+            className="input"
+          />
+
+          <input
+            name="keywords"
+            placeholder="Topics (AI, startups...)"
+            className="input"
+          />
+
+          <select
+            name="frequency_hours"
+            defaultValue="24"
+            className="input"
+          >
             <option value="12">Twice daily</option>
             <option value="24">Daily</option>
             <option value="48">Every 2 days</option>
             <option value="168">Weekly</option>
           </select>
 
-          <button type="submit" disabled={loading} className="btn">
-            {loading ? "Joining..." : "Join Signal"}
+          <button type="submit" className="btn">
+            Join Signal
           </button>
         </form>
       </motion.div>
