@@ -30,7 +30,7 @@ export default function AutomateXPage() {
           </p>
 
           <p className="text-2xl font-semibold mb-10">
-            ₦10,000
+            ₦25,000
           </p>
 
           <a
