@@ -4,11 +4,13 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 
 export default function SignlContent() {
+
   const [loading, setLoading] = useState(false);
-  const [resultsHtml, setResultsHtml] = useState("");
+  const [articles, setArticles] = useState([]);
   const [error, setError] = useState("");
 
   async function handleSubmit(e) {
+
     e.preventDefault();
     if (loading) return;
 
@@ -21,9 +23,10 @@ export default function SignlContent() {
 
     setLoading(true);
     setError("");
-    setResultsHtml("");
+    setArticles([]);
 
     try {
+
       const response = await fetch(
         "https://signl.shaddies.space/webhook/generate-digest",
         {
@@ -46,16 +49,21 @@ export default function SignlContent() {
 
       const data = await response.json();
 
-      if (!data?.html) {
+      if (!data?.articles?.length) {
         throw new Error("No results returned.");
       }
 
-      setResultsHtml(data.html);
+      setArticles(data.articles);
+
     } catch (err) {
+
       console.error(err);
       setError("Unable to fetch updates. Please try again.");
+
     } finally {
+
       setLoading(false);
+
     }
   }
 
@@ -66,8 +74,6 @@ export default function SignlContent() {
 
       <form onSubmit={handleSubmit} className="space-y-4">
 
-        {/* Niche */}
-
         <input
           name="niche"
           placeholder="Field or industry (AI, robotics, fintech...)"
@@ -75,15 +81,11 @@ export default function SignlContent() {
           className="w-full p-3 rounded-lg border border-black/20 text-black"
         />
 
-        {/* Keywords */}
-
         <input
           name="keywords"
           placeholder="Optional keywords (agents, startups, research...)"
           className="w-full p-3 rounded-lg border border-black/20 text-black"
         />
-
-        {/* Result Count */}
 
         <div className="grid grid-cols-2 gap-4">
 
@@ -98,8 +100,6 @@ export default function SignlContent() {
             <option value="20">20 results</option>
           </select>
 
-          {/* Timeframe */}
-
           <select
             name="timeframe"
             defaultValue="week"
@@ -113,8 +113,6 @@ export default function SignlContent() {
 
         </div>
 
-        {/* Submit */}
-
         <button
           type="submit"
           disabled={loading}
@@ -125,8 +123,6 @@ export default function SignlContent() {
 
       </form>
 
-      {/* Error */}
-
       {error && (
         <div className="p-4 rounded-lg bg-red-100 text-red-700 border border-red-200 text-sm">
           {error}
@@ -135,18 +131,56 @@ export default function SignlContent() {
 
       {/* Results */}
 
-      {resultsHtml && (
+      {articles.length > 0 && (
         <motion.div
           initial={{ opacity: 0, y: 25 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
-          className="bg-white rounded-xl border border-black/10 shadow-lg overflow-hidden"
+          className="bg-white rounded-xl border border-black/10 shadow-lg"
         >
-          <div className="max-w-3xl mx-auto p-6">
-            <div dangerouslySetInnerHTML={{ __html: resultsHtml }} />
+
+          <div className="max-w-5xl mx-auto p-8 space-y-8">
+
+            <h2 className="text-2xl font-semibold">
+              Latest Updates
+            </h2>
+
+            {articles.map((article, i) => (
+
+              <article key={i} className="border-b pb-6">
+
+                <h3 className="text-lg font-semibold">
+                  {article.title}
+                </h3>
+
+                <p className="text-gray-600 mt-2">
+                  {article.summary}
+                </p>
+
+                <a
+                  href={article.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block mt-3 text-blue-600 font-medium"
+                >
+                  Read more →
+                </a>
+
+              </article>
+
+            ))}
+
+            <footer className="pt-6 text-sm text-gray-500 text-center">
+              Thank you for using SIGNL.
+              <br />
+              © {new Date().getFullYear()}
+            </footer>
+
           </div>
+
         </motion.div>
       )}
+
     </div>
   );
 }
