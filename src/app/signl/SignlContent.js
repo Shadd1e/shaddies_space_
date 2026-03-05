@@ -1,162 +1,115 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
-import FlowBackground from "@/components/FlowBackground";
-import Link from "next/link";
+import { useState } from "react";
+import { motion } from "framer-motion";
 
 export default function SignlContent() {
-  const searchParams = useSearchParams();
-  const status = searchParams.get("status");
+  const [loading, setLoading] = useState(false);
+  const [resultsHtml, setResultsHtml] = useState("");
+  const [error, setError] = useState("");
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+
+    if (loading) return;
+
+    const formData = new FormData(e.target);
+    const niche = formData.get("niche");
+    const keywords = formData.get("keywords");
+
+    setLoading(true);
+    setError("");
+    setResultsHtml("");
+
+    try {
+      const response = await fetch(
+        "https://signl.shaddies.space/webhook/generate-digest",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            niche,
+            keywords,
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to generate updates.");
+      }
+
+      const data = await response.json();
+
+      if (!data?.html) {
+        throw new Error("No results returned.");
+      }
+
+      setResultsHtml(data.html);
+    } catch (err) {
+      console.error(err);
+      setError("Something went wrong while fetching updates. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center overflow-hidden px-4">
-      <FlowBackground />
+    <div className="space-y-8">
 
-      <motion.div
-        initial={{ y: 60, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6 }}
-        className="relative z-10 max-w-2xl w-full bg-black/60 backdrop-blur-xl rounded-2xl p-10 text-white shadow-2xl space-y-10"
-      >
-        <div className="space-y-4">
-          <h1 className="text-4xl font-bold">Welcome to Signl</h1>
-          <p className="text-white/80">
-            Manage your Signl preferences below.
-          </p>
+      {/* Search Form */}
+
+      <form onSubmit={handleSubmit} className="space-y-4">
+
+        <input
+          name="niche"
+          placeholder="Field or industry (AI, robotics, fintech...)"
+          required
+          className="w-full p-3 rounded-lg border border-black/20 text-black"
+        />
+
+        <input
+          name="keywords"
+          placeholder="Optional keywords (agents, startups, research...)"
+          className="w-full p-3 rounded-lg border border-black/20 text-black"
+        />
+
+        <button
+          type="submit"
+          disabled={loading}
+          className="w-full p-3 rounded-lg bg-[#182E6F] text-white font-semibold hover:opacity-90 transition disabled:opacity-60"
+        >
+          {loading ? "Scanning the web..." : "Generate Updates"}
+        </button>
+
+      </form>
+
+      {/* Error Message */}
+
+      {error && (
+        <div className="p-4 rounded-lg bg-red-100 text-red-700 border border-red-200 text-sm">
+          {error}
         </div>
+      )}
 
-        <AnimatePresence>
-          {status && (
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              className="p-4 rounded-lg bg-green-600/20 border border-green-500/40 text-sm"
-            >
-              {status === "success" && "Registration successful."}
-              {status === "updated" && "Your preferences have been updated."}
-              {status === "deactivated" && "Subscription deactivated."}
-            </motion.div>
-          )}
-        </AnimatePresence>
+      {/* Results */}
 
-        <SectionCard title="Change Your Field (Niche)">
-          <form
-            action="https://signl.shaddies.space/webhook/update-niche"
-            method="POST"
-            className="space-y-4"
-          >
-            <input
-              name="email"
-              type="email"
-              placeholder="Your registered email"
-              required
-              className="w-full p-3 rounded-lg bg-black/40 border border-white/20 text-white"
+      {resultsHtml && (
+        <motion.div
+          initial={{ opacity: 0, y: 25 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+          className="bg-white rounded-xl border border-black/10 shadow-lg overflow-hidden"
+        >
+          <div className="max-w-3xl mx-auto p-6">
+            <div
+              dangerouslySetInnerHTML={{ __html: resultsHtml }}
             />
-            <input
-              name="niche"
-              placeholder="New field (e.g Technology)"
-              required
-              className="w-full p-3 rounded-lg bg-black/40 border border-white/20 text-white"
-            />
-            <button type="submit" className="w-full p-3 rounded-lg bg-white text-black font-semibold hover:opacity-90 transition">
-              Update Field
-            </button>
-          </form>
-        </SectionCard>
+          </div>
+        </motion.div>
+      )}
 
-        <SectionCard title="Change Keywords">
-          <form
-            action="https://signl.shaddies.space/webhook/update-keywords"
-            method="POST"
-            className="space-y-4"
-          >
-            <input
-              name="email"
-              type="email"
-              placeholder="Your registered email"
-              required
-              className="w-full p-3 rounded-lg bg-black/40 border border-white/20 text-white"
-            />
-            <input
-              name="keywords"
-              placeholder="New keywords (AI, startups...)"
-              required
-              className="w-full p-3 rounded-lg bg-black/40 border border-white/20 text-white"
-            />
-            <button type="submit" className="w-full p-3 rounded-lg bg-white text-black font-semibold hover:opacity-90 transition">
-              Update Keywords
-            </button>
-          </form>
-        </SectionCard>
-
-        <SectionCard title="Change Delivery Frequency">
-          <form
-            action="https://signl.shaddies.space/webhook/update-frequency"
-            method="POST"
-            className="space-y-4"
-          >
-            <input
-              name="email"
-              type="email"
-              placeholder="Your registered email"
-              required
-              className="w-full p-3 rounded-lg bg-black/40 border border-white/20 text-white"
-            />
-            <select
-              name="frequency_hours"
-              required
-              className="w-full p-3 rounded-lg bg-black/40 border border-white/20 text-white"
-            >
-              <option value="12">Twice daily</option>
-              <option value="24">Daily</option>
-              <option value="48">Every 2 days</option>
-              <option value="168">Weekly</option>
-            </select>
-            <button type="submit" className="w-full p-3 rounded-lg bg-white text-black font-semibold hover:opacity-90 transition">
-              Update Frequency
-            </button>
-          </form>
-        </SectionCard>
-
-        <SectionCard title="Deactivate Subscription">
-          <form
-            action="https://signl.shaddies.space/webhook/deactivate"
-            method="POST"
-            className="space-y-4"
-          >
-            <input
-              name="email"
-              type="email"
-              placeholder="Your registered email"
-              required
-              className="w-full p-3 rounded-lg bg-black/40 border border-white/20 text-white"
-            />
-            <button type="submit" className="w-full p-3 rounded-lg bg-red-600 text-white font-semibold hover:opacity-90 transition">
-              Deactivate
-            </button>
-          </form>
-        </SectionCard>
-
-        <div className="pt-6 border-t border-white/10 text-sm text-white/70 flex justify-between">
-          <Link href="/signl/terms" className="hover:underline">
-            Terms of Service
-          </Link>
-          <Link href="/signl/privacy" className="hover:underline">
-            Privacy Policy
-          </Link>
-        </div>
-      </motion.div>
-    </div>
-  );
-}
-
-function SectionCard({ title, children }) {
-  return (
-    <div className="border border-white/10 rounded-xl p-6 bg-white/5 space-y-4">
-      <h2 className="text-xl font-semibold">{title}</h2>
-      {children}
     </div>
   );
 }
