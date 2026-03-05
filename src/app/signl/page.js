@@ -3,7 +3,7 @@
 import Link from "next/link";
 import FlowBackground from "@/components/FlowBackground";
 import { Suspense, useEffect, useState } from "react";
-import SignlContent from "@/components/SignlContent";
+import SignlContent from "./SignlContent";
 
 export default function SignlHome() {
   const year = new Date().getFullYear();
