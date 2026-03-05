@@ -44,16 +44,21 @@ export default function SignlContent() {
       );
 
       if (!response.ok) {
-        throw new Error("Request failed.");
+        throw new Error("Request failed");
       }
 
       const data = await response.json();
 
-      if (!data?.articles?.length) {
-        throw new Error("No results returned.");
+      const returnedArticles =
+        data?.articles ||
+        data?.content?.articles ||
+        [];
+
+      if (!returnedArticles.length) {
+        throw new Error("No results returned");
       }
 
-      setArticles(data.articles);
+      setArticles(returnedArticles);
 
     } catch (err) {
 
@@ -123,6 +128,8 @@ export default function SignlContent() {
 
       </form>
 
+      {/* Error */}
+
       {error && (
         <div className="p-4 rounded-lg bg-red-100 text-red-700 border border-red-200 text-sm">
           {error}
@@ -132,6 +139,7 @@ export default function SignlContent() {
       {/* Results */}
 
       {articles.length > 0 && (
+
         <motion.div
           initial={{ opacity: 0, y: 25 }}
           animate={{ opacity: 1, y: 0 }}
@@ -139,38 +147,47 @@ export default function SignlContent() {
           className="bg-white rounded-xl border border-black/10 shadow-lg"
         >
 
-          <div className="max-w-5xl mx-auto p-8 space-y-8">
+          <div className="max-w-6xl mx-auto p-8">
 
-            <h2 className="text-2xl font-semibold">
+            <h2 className="text-2xl font-semibold mb-8">
               Latest Updates
             </h2>
 
-            {articles.map((article, i) => (
+            {/* Two Column Layout */}
 
-              <article key={i} className="border-b pb-6">
+            <div className="grid md:grid-cols-2 gap-8">
 
-                <h3 className="text-lg font-semibold">
-                  {article.title}
-                </h3>
+              {articles.map((article, i) => (
 
-                <p className="text-gray-600 mt-2">
-                  {article.summary}
-                </p>
-
-                <a
-                  href={article.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-block mt-3 text-blue-600 font-medium"
+                <article
+                  key={i}
+                  className="border-b pb-6"
                 >
-                  Read more →
-                </a>
 
-              </article>
+                  <h3 className="text-lg font-semibold">
+                    {article.title}
+                  </h3>
 
-            ))}
+                  <p className="text-gray-600 mt-2">
+                    {article.summary}
+                  </p>
 
-            <footer className="pt-6 text-sm text-gray-500 text-center">
+                  <a
+                    href={article.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block mt-3 text-blue-600 font-medium"
+                  >
+                    Read more →
+                  </a>
+
+                </article>
+
+              ))}
+
+            </div>
+
+            <footer className="pt-10 text-sm text-gray-500 text-center">
               Thank you for using SIGNL.
               <br />
               © {new Date().getFullYear()}
@@ -179,6 +196,7 @@ export default function SignlContent() {
           </div>
 
         </motion.div>
+
       )}
 
     </div>
