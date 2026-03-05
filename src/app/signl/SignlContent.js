@@ -10,12 +10,14 @@ export default function SignlContent() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-
     if (loading) return;
 
     const formData = new FormData(e.target);
-    const niche = formData.get("niche");
-    const keywords = formData.get("keywords");
+
+    const niche = formData.get("niche")?.toString().trim();
+    const keywords = formData.get("keywords")?.toString().trim();
+    const limit = parseInt(formData.get("limit") || "20");
+    const timeframe = formData.get("timeframe") || "week";
 
     setLoading(true);
     setError("");
@@ -32,12 +34,14 @@ export default function SignlContent() {
           body: JSON.stringify({
             niche,
             keywords,
+            limit,
+            timeframe,
           }),
         }
       );
 
       if (!response.ok) {
-        throw new Error("Failed to generate updates.");
+        throw new Error("Request failed.");
       }
 
       const data = await response.json();
@@ -49,7 +53,7 @@ export default function SignlContent() {
       setResultsHtml(data.html);
     } catch (err) {
       console.error(err);
-      setError("Something went wrong while fetching updates. Please try again.");
+      setError("Unable to fetch updates. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -62,6 +66,8 @@ export default function SignlContent() {
 
       <form onSubmit={handleSubmit} className="space-y-4">
 
+        {/* Niche */}
+
         <input
           name="niche"
           placeholder="Field or industry (AI, robotics, fintech...)"
@@ -69,11 +75,45 @@ export default function SignlContent() {
           className="w-full p-3 rounded-lg border border-black/20 text-black"
         />
 
+        {/* Keywords */}
+
         <input
           name="keywords"
           placeholder="Optional keywords (agents, startups, research...)"
           className="w-full p-3 rounded-lg border border-black/20 text-black"
         />
+
+        {/* Result Count */}
+
+        <div className="grid grid-cols-2 gap-4">
+
+          <select
+            name="limit"
+            defaultValue="20"
+            className="p-3 rounded-lg border border-black/20 text-black"
+          >
+            <option value="5">5 results</option>
+            <option value="10">10 results</option>
+            <option value="15">15 results</option>
+            <option value="20">20 results</option>
+          </select>
+
+          {/* Timeframe */}
+
+          <select
+            name="timeframe"
+            defaultValue="week"
+            className="p-3 rounded-lg border border-black/20 text-black"
+          >
+            <option value="6h">Last 6 hours</option>
+            <option value="today">Today</option>
+            <option value="week">This week</option>
+            <option value="month">This month</option>
+          </select>
+
+        </div>
+
+        {/* Submit */}
 
         <button
           type="submit"
@@ -85,7 +125,7 @@ export default function SignlContent() {
 
       </form>
 
-      {/* Error Message */}
+      {/* Error */}
 
       {error && (
         <div className="p-4 rounded-lg bg-red-100 text-red-700 border border-red-200 text-sm">
@@ -103,13 +143,10 @@ export default function SignlContent() {
           className="bg-white rounded-xl border border-black/10 shadow-lg overflow-hidden"
         >
           <div className="max-w-3xl mx-auto p-6">
-            <div
-              dangerouslySetInnerHTML={{ __html: resultsHtml }}
-            />
+            <div dangerouslySetInnerHTML={{ __html: resultsHtml }} />
           </div>
         </motion.div>
       )}
-
     </div>
   );
 }
