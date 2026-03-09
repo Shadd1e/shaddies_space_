@@ -6,7 +6,7 @@ import Hero from "@/components/Hero";
 import Bridge from "@/components/Bridge";
 import BookSection from "@/components/BookSection";
 import Testimonials from "@/components/Testimonials";
-import AutomateX from "@/components/AutomateX";
+import AutomateX from "@/components/AutomateXSignup";
 import Footer from "@/components/Footer";
 import CoursePopup from "@/components/CoursePopup";
 import CohortPopup from "@/components/CohortPopup";
