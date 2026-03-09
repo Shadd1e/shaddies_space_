@@ -8,8 +8,8 @@ import BookSection from "@/components/BookSection";
 import Testimonials from "@/components/Testimonials";
 import AutomateX from "@/components/AutomateXSignup";
 import Footer from "@/components/Footer";
-import CoursePopup from "@/components/CoursePopup";
-import CohortPopup from "@/components/CohortPopup";
+import CoursePopup from "@/components/CoursePopu";
+import CohortPopup from "@/components/k";
 
 export default function Home() {
   const [courseOpen, setCourseOpen] = useState(false);
