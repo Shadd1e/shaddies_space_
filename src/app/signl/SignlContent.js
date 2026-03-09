@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const NICHES = [
@@ -16,67 +16,149 @@ const NICHES = [
   { value: "fashion",  label: "Fashion" },
 ];
 
-const WEBHOOK = "https://signl.shaddies.space/webhook/generate-digest";
-
-const STATUS_MESSAGES = [
-  "Scanning the web…",
-  "Pulling the latest feeds…",
-  "Filtering what matters…",
-  "Running it through AI…",
-  "Almost there…",
-  "Just a moment longer…",
+const STEPS = [
+  { label: "Receiving request",   duration: 1500 },
+  { label: "Fetching live feeds", duration: 5000 },
+  { label: "Filtering articles",  duration: 3000 },
+  { label: "Running AI digest",   duration: 8000 },
+  { label: "Finalising results",  duration: 2000 },
 ];
 
-export default function SignlContent() {
-  const [loading, setLoading]   = useState(false);
-  const [statusIdx, setStatusIdx] = useState(0);
-  const [articles, setArticles] = useState([]);
-  const [error, setError]       = useState("");
-  const [niche, setNiche]       = useState("general");
-  const statusTimer = useRef(null);
+const WEBHOOK = "https://signl.shaddies.space/webhook/generate-digest";
 
-  function startStatusCycle() {
-    let i = 0;
-    setStatusIdx(0);
-    statusTimer.current = setInterval(() => {
-      i = Math.min(i + 1, STATUS_MESSAGES.length - 1);
-      setStatusIdx(i);
-    }, 4000);
-  }
+// ── Processing Screen ─────────────────────────────────────────────────────────
+function ProcessingScreen({ niche }) {
+  const [currentStep, setCurrentStep]     = useState(0);
+  const [completedSteps, setCompletedSteps] = useState([]);
+  const [elapsed, setElapsed]             = useState(0);
+  const startTime = useRef(Date.now());
 
-  function stopStatusCycle() {
-    clearInterval(statusTimer.current);
-  }
+  useEffect(() => {
+    const t = setInterval(() => setElapsed(Math.floor((Date.now() - startTime.current) / 1000)), 500);
+    return () => clearInterval(t);
+  }, []);
 
-  // Poll until job is done or we time out (~30s)
-  async function pollForResult(jobId, attempts = 0) {
-    if (attempts > 10) {
-      throw new Error("Your digest is taking longer than usual. Please try again in a moment.");
+  useEffect(() => {
+    let step = 0;
+    let timeout;
+    function advance() {
+      if (step >= STEPS.length - 1) return;
+      timeout = setTimeout(() => {
+        setCompletedSteps(prev => [...prev, step]);
+        step++;
+        setCurrentStep(step);
+        advance();
+      }, STEPS[step].duration);
     }
+    advance();
+    return () => clearTimeout(timeout);
+  }, []);
+
+  const progress = Math.min(
+    (completedSteps.length / STEPS.length) * 100 + (currentStep < STEPS.length ? 8 : 0),
+    95
+  );
+
+  return (
+    <motion.div
+      key="processing"
+      initial={{ opacity: 0, scale: 0.97 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.97 }}
+      transition={{ duration: 0.3 }}
+      className="rounded-xl border border-black/10 shadow-lg bg-white p-8 space-y-8"
+    >
+      <div className="flex items-center justify-between">
+        <div>
+          <h2 className="text-xl font-semibold">Building your digest</h2>
+          <p className="text-sm text-black/40 mt-0.5">
+            {NICHES.find(n => n.value === niche)?.label} · {elapsed}s elapsed
+          </p>
+        </div>
+        <div className="w-10 h-10 rounded-full border-2 border-[#182E6F]/20 border-t-[#182E6F] animate-spin" />
+      </div>
+
+      <div className="w-full h-1.5 bg-black/5 rounded-full overflow-hidden">
+        <motion.div
+          className="h-full bg-[#182E6F] rounded-full"
+          animate={{ width: `${progress}%` }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+        />
+      </div>
+
+      <div className="space-y-3">
+        {STEPS.map((step, i) => {
+          const done    = completedSteps.includes(i);
+          const active  = currentStep === i;
+          const pending = !done && !active;
+          return (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, x: -8 }}
+              animate={{ opacity: pending ? 0.35 : 1, x: 0 }}
+              transition={{ delay: i * 0.08 }}
+              className="flex items-center gap-3"
+            >
+              <div className={`w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-300 ${
+                done   ? "bg-[#182E6F]" :
+                active ? "border-2 border-[#182E6F]" :
+                         "border-2 border-black/10"
+              }`}>
+                {done && (
+                  <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                  </svg>
+                )}
+                {active && <div className="w-2 h-2 rounded-full bg-[#182E6F] animate-pulse" />}
+              </div>
+              <span className={`text-sm transition-all duration-300 ${
+                done   ? "text-black/40 line-through" :
+                active ? "text-black font-medium" :
+                         "text-black/30"
+              }`}>
+                {step.label}
+              </span>
+              {active && <span className="ml-auto text-xs text-[#182E6F] font-medium animate-pulse">In progress</span>}
+              {done   && <span className="ml-auto text-xs text-black/25">Done</span>}
+            </motion.div>
+          );
+        })}
+      </div>
+
+      <p className="text-xs text-black/30 text-center">
+        This usually takes 15–30 seconds. Please don't close the page.
+      </p>
+    </motion.div>
+  );
+}
+
+// ── Main Component ────────────────────────────────────────────────────────────
+export default function SignlContent() {
+  const [view, setView]         = useState("form");
+  const [niche, setNiche]       = useState("general");
+  const [articles, setArticles] = useState([]);
+  const [errorMsg, setErrorMsg] = useState("");
+
+  async function pollForResult(jobId, attempts = 0) {
+    if (attempts > 10) throw new Error("Your digest took too long. Please try again.");
     await new Promise(r => setTimeout(r, 3000));
-    const res = await fetch(WEBHOOK, {
+    const res  = await fetch(WEBHOOK, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ jobId }),
     });
     const data = await res.json();
-    if (data?.status === "processing") {
-      return pollForResult(jobId, attempts + 1);
-    }
+    if (data?.status === "processing") return pollForResult(jobId, attempts + 1);
     return data;
   }
 
   async function handleSubmit(e) {
     e.preventDefault();
-    if (loading) return;
+    const keywords = new FormData(e.target).get("keywords")?.toString().trim() || "";
 
-    const formData = new FormData(e.target);
-    const keywords = formData.get("keywords")?.toString().trim() || "";
-
-    setLoading(true);
-    setError("");
+    setView("processing");
+    setErrorMsg("");
     setArticles([]);
-    startStatusCycle();
 
     try {
       const res = await fetch(WEBHOOK, {
@@ -85,100 +167,86 @@ export default function SignlContent() {
         body: JSON.stringify({ niche, keywords }),
       });
 
-      if (!res.ok) {
-        throw new Error("The server returned an error. Please try again.");
-      }
+      if (!res.ok) throw new Error("The server returned an error. Please try again.");
 
       let data = await res.json();
-
-      // 202 means job queued — poll for result
       if (res.status === 202 && data?.jobId) {
         data = await pollForResult(data.jobId);
       }
 
       const returned = data?.articles || data?.content?.articles || [];
-
-      if (!returned.length) {
-        throw new Error("No articles came back. Try a different niche or keywords.");
-      }
+      if (!returned.length) throw new Error("No articles came back. Try different keywords.");
 
       setArticles(returned);
-
+      setView("results");
     } catch (err) {
       console.error(err);
-      setError(
-        err.message ||
-        "Something went wrong fetching your digest. Please try again."
-      );
-    } finally {
-      stopStatusCycle();
-      setLoading(false);
+      setErrorMsg(err.message || "Something went wrong. Please try again.");
+      setView("error");
     }
   }
 
   return (
     <div className="space-y-8">
+      <AnimatePresence mode="wait">
 
-      {/* Search Form */}
-      <form onSubmit={handleSubmit} className="space-y-4">
-
-        {/* Niche pill selector */}
-        <div>
-          <p className="text-xs font-semibold uppercase tracking-widest text-black/40 mb-2">
-            Select a niche
-          </p>
-          <div className="flex flex-wrap gap-2">
-            {NICHES.map(n => (
-              <button
-                key={n.value}
-                type="button"
-                onClick={() => setNiche(n.value)}
-                className={`px-4 py-1.5 rounded-full text-sm font-medium border transition-all ${
-                  niche === n.value
-                    ? "bg-[#182E6F] text-white border-[#182E6F]"
-                    : "bg-white text-black/70 border-black/20 hover:border-[#182E6F] hover:text-[#182E6F]"
-                }`}
-              >
-                {n.label}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <input
-          name="keywords"
-          placeholder="Optional keywords (e.g. agents, funding, research…)"
-          className="w-full p-3 rounded-lg border border-black/20 text-black placeholder:text-black/30 focus:outline-none focus:border-[#182E6F] transition"
-        />
-
-        <button
-          type="submit"
-          disabled={loading}
-          className="w-full p-3 rounded-lg bg-[#182E6F] text-white font-semibold hover:opacity-90 transition disabled:opacity-60"
-        >
-          {loading ? STATUS_MESSAGES[statusIdx] : "Generate Updates"}
-        </button>
-
-      </form>
-
-      {/* Error */}
-      <AnimatePresence>
-        {error && (
+        {/* FORM */}
+        {view === "form" && (
           <motion.div
-            initial={{ opacity: 0, y: -8 }}
+            key="form"
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            className="p-4 rounded-lg bg-red-50 text-red-700 border border-red-200 text-sm"
+            exit={{ opacity: 0, y: -16 }}
+            transition={{ duration: 0.3 }}
           >
-            {error}
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-widest text-black/40 mb-2">
+                  Select a niche
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {NICHES.map(n => (
+                    <button
+                      key={n.value}
+                      type="button"
+                      onClick={() => setNiche(n.value)}
+                      className={`px-4 py-1.5 rounded-full text-sm font-medium border transition-all ${
+                        niche === n.value
+                          ? "bg-[#182E6F] text-white border-[#182E6F]"
+                          : "bg-white text-black/70 border-black/20 hover:border-[#182E6F] hover:text-[#182E6F]"
+                      }`}
+                    >
+                      {n.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <input
+                name="keywords"
+                placeholder="Optional keywords (e.g. agents, funding, research…)"
+                className="w-full p-3 rounded-lg border border-black/20 text-black placeholder:text-black/30 focus:outline-none focus:border-[#182E6F] transition"
+              />
+
+              <button
+                type="submit"
+                className="w-full p-3 rounded-lg bg-[#182E6F] text-white font-semibold hover:opacity-90 transition"
+              >
+                Generate Updates
+              </button>
+            </form>
           </motion.div>
         )}
-      </AnimatePresence>
 
-      {/* Results */}
-      <AnimatePresence>
-        {articles.length > 0 && (
+        {/* PROCESSING */}
+        {view === "processing" && (
+          <ProcessingScreen key="processing" niche={niche} />
+        )}
+
+        {/* RESULTS */}
+        {view === "results" && (
           <motion.div
+            key="results"
             initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
@@ -186,12 +254,19 @@ export default function SignlContent() {
             className="bg-white rounded-xl border border-black/10 shadow-lg"
           >
             <div className="max-w-6xl mx-auto p-8">
-
               <div className="flex items-center justify-between mb-8">
                 <h2 className="text-2xl font-semibold">Latest Updates</h2>
-                <span className="text-xs font-medium uppercase tracking-widest text-black/30 border border-black/10 px-3 py-1 rounded-full">
-                  {NICHES.find(n => n.value === niche)?.label}
-                </span>
+                <div className="flex items-center gap-3">
+                  <span className="text-xs font-medium uppercase tracking-widest text-black/30 border border-black/10 px-3 py-1 rounded-full">
+                    {NICHES.find(n => n.value === niche)?.label}
+                  </span>
+                  <button
+                    onClick={() => setView("form")}
+                    className="text-xs text-[#182E6F] font-medium hover:underline"
+                  >
+                    ← New search
+                  </button>
+                </div>
               </div>
 
               <div className="grid md:grid-cols-2 gap-8">
@@ -203,12 +278,8 @@ export default function SignlContent() {
                     transition={{ delay: i * 0.04 }}
                     className="border-b pb-6"
                   >
-                    <h3 className="text-lg font-semibold leading-snug">
-                      {article.title}
-                    </h3>
-                    <p className="text-gray-600 mt-2 text-sm leading-relaxed">
-                      {article.summary}
-                    </p>
+                    <h3 className="text-lg font-semibold leading-snug">{article.title}</h3>
+                    <p className="text-gray-600 mt-2 text-sm leading-relaxed">{article.summary}</p>
                     {article.pubDate && (
                       <p className="text-xs text-black/30 mt-2">
                         {new Date(article.pubDate).toLocaleDateString("en-US", {
@@ -229,16 +300,33 @@ export default function SignlContent() {
               </div>
 
               <footer className="pt-10 text-sm text-gray-400 text-center">
-                Thank you for using SIGNL.
-                <br />
-                © {new Date().getFullYear()}
+                Thank you for using SIGNL.<br />© {new Date().getFullYear()}
               </footer>
-
             </div>
           </motion.div>
         )}
-      </AnimatePresence>
 
+        {/* ERROR */}
+        {view === "error" && (
+          <motion.div
+            key="error"
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0 }}
+            className="rounded-xl border border-red-200 bg-red-50 p-8 text-center space-y-4"
+          >
+            <div className="text-3xl">⚠️</div>
+            <p className="text-red-700 font-medium">{errorMsg}</p>
+            <button
+              onClick={() => setView("form")}
+              className="mt-2 px-6 py-2.5 rounded-lg bg-[#182E6F] text-white text-sm font-semibold hover:opacity-90 transition"
+            >
+              Try again
+            </button>
+          </motion.div>
+        )}
+
+      </AnimatePresence>
     </div>
   );
 }
