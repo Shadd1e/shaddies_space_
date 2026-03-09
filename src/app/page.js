@@ -2,8 +2,9 @@ import HomeClient from "@/components/HomeClient";
 import Bridge from "@/components/Bridge";
 import BookSection from "@/components/BookSection";
 import Testimonials from "@/components/Testimonials";
-import AutomateX from "@/components/AutomateX";
+import AutomateX from "@/components/AutomateXSignup";
 import Footer from "@/components/Footer";
+import AutomateXSignup from "./automatex/page";
 
 export default function Home() {
   return (
@@ -12,7 +13,7 @@ export default function Home() {
       <Bridge />
       <BookSection />
       <Testimonials />
-      <AutomateX />
+      <AutomateXSignup />
       <Footer />
     </>
   );
