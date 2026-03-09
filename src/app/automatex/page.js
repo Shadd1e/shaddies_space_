@@ -1,193 +1,179 @@
 "use client";
 
-import { motion } from "framer-motion";
-import Footer from "@/components/Footer";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import emailjs from "@emailjs/browser";
 
-export default function AutomateXPage() {
+// ── EmailJS config — fill these in from your EmailJS dashboard ───────────────
+const EMAILJS_SERVICE_ID  = "YOUR_SERVICE_ID";
+const EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID";
+const EMAILJS_PUBLIC_KEY  = "YOUR_PUBLIC_KEY";
+
+const PAYMENT_LINK = "https://flutterwave.com/pay/9oujlxbdovcl";
+
+const ROLES = [
+  "Student",
+  "Entrepreneur",
+  "Freelancer",
+  "Developer",
+  "Virtual Assistant",
+  "Business Owner",
+  "Marketing / Content Creator",
+  "Other",
+];
+
+export default function AutomateXSignup() {
+  const [form, setForm]     = useState({ name: "", email: "", phone: "", role: "" });
+  const [status, setStatus] = useState("idle"); // idle | loading | success | error
+
+  function handleChange(e) {
+    setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
+  }
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    if (!form.name || !form.email || !form.phone || !form.role) return;
+    setStatus("loading");
+    try {
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
+          to_name:      form.name,
+          to_email:     form.email,
+          phone:        form.phone,
+          role:         form.role,
+          payment_link: PAYMENT_LINK,
+        },
+        EMAILJS_PUBLIC_KEY
+      );
+      setStatus("success");
+    } catch (err) {
+      console.error(err);
+      setStatus("error");
+    }
+  }
+
   return (
-    <main className="relative z-10 system-grid">
+    <AnimatePresence mode="wait">
 
-      {/* HERO */}
-      <motion.section
-        initial={{ opacity: 0, scale: 1.05 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1 }}
-        className="min-h-[85vh] px-6 pt-32 flex flex-col justify-center"
-      >
-        <div className="max-w-5xl mx-auto">
-          <h1 className="text-4xl md:text-6xl font-semibold mb-6">
-            AutomateX — Cohort 1
-          </h1>
+      {status !== "success" && (
+        <motion.div
+          key="form"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -10 }}
+          transition={{ duration: 0.4 }}
+        >
+          <form onSubmit={handleSubmit} className="space-y-5">
 
-          <p className="text-xl max-w-3xl mb-4">
-            Learn how to build AI-powered systems with n8n.  
-            Replace manual work with automated workflows.  
-            Design businesses that run without constant supervision.
-          </p>
-
-          <p className="text-lg text-black/70 mb-6">
-            March 9 – March 21 • Live on Google Meet • Recordings included
-          </p>
-
-          <p className="text-2xl font-semibold mb-10">
-            ₦25,000
-          </p>
-
-          <a
-            href="https://flutterwave.com/pay/yvwxtd6npcip"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block border border-[#191970] px-12 py-5 text-xl font-semibold hover:bg-[#191970] hover:text-white transition"
-          >
-            Register Now
-          </a>
-        </div>
-      </motion.section>
-
-      {/* FLYER */}
-      <motion.section
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-        className="px-6 py-28"
-      >
-        <div className="max-w-4xl mx-auto">
-          <img src="/automatex-flyer.png" alt="AutomateX Flyer" className="w-full" />
-        </div>
-      </motion.section>
-
-      {/* WHAT YOU’LL LEARN */}
-      <motion.section
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-        className="px-6 py-28"
-      >
-        <div className="max-w-5xl mx-auto">
-          <h2 className="text-3xl font-semibold mb-10">What you’ll learn</h2>
-
-          <ul className="space-y-6 text-lg max-w-3xl">
-            <li>• Installing Docker and running local automation stacks</li>
-            <li>• n8n fundamentals and workflow architecture</li>
-            <li>• Designing business systems (not just automations)</li>
-            <li>• Writing logic, conditions, and basic algorithms</li>
-            <li>• Working with APIs and understanding how data flows</li>
-            <li>• Google Workspace integration</li>
-            <li>• Service accounts, credentials, and security practices</li>
-            <li>• Building real automations for operations, sales, and admin</li>
-          </ul>
-        </div>
-      </motion.section>
-
-      {/* DELIVERY + REQUIREMENTS */}
-      <motion.section
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-        className="px-6 py-28 bg-[#191970] text-white"
-      >
-        <div className="max-w-5xl mx-auto">
-          <h2 className="text-3xl font-semibold mb-8">
-            How the workshop runs
-          </h2>
-
-          <ul className="space-y-5 text-lg max-w-3xl">
-            <li>• Live classes held on Google Meet</li>
-            <li>• All sessions are recorded for replay</li>
-            <li>• A laptop is required</li>
-            <li>• Stable internet connection is required</li>
-            <li>• Practical assessments throughout the workshop</li>
-            <li>• Certificate of completion powered by AltekFlo Enterprise</li>
-          </ul>
-        </div>
-      </motion.section>
-
-      {/* WHO IT’S FOR */}
-      <motion.section
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-        className="px-6 py-28"
-      >
-        <div className="max-w-5xl mx-auto">
-          <h2 className="text-3xl font-semibold mb-8">Who this is for</h2>
-
-          <ul className="space-y-4 text-lg max-w-3xl">
-            <li>• Founders tired of manual operations</li>
-            <li>• Teams that want automated workflows</li>
-            <li>• Builders learning no-code systems</li>
-            <li>• Businesses ready to scale intelligently</li>
-          </ul>
-        </div>
-      </motion.section>
-
-      {/* FINAL CTA */}
-      <motion.section
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-        className="px-6 py-28"
-      >
-        <div className="max-w-5xl mx-auto">
-          <h2 className="text-3xl font-semibold mb-6">
-            Ready to build systems?
-          </h2>
-
-          <a
-            href="https://flutterwave.com/pay/yvwxtd6npcip"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block border border-[#191970] px-12 py-5 text-xl font-semibold hover:bg-[#191970] hover:text-white transition"
-          >
-            Register Now
-          </a>
-        </div>
-      </motion.section>
-
-      {/* FAQ */}
-      <motion.section
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-        className="px-6 py-28 bg-[#f8f7f4]"
-      >
-        <div className="max-w-5xl mx-auto">
-
-          <h2 className="text-3xl font-semibold mb-10">Frequently asked questions</h2>
-
-          <div className="space-y-8 max-w-3xl">
             <div>
-              <p className="font-medium">Do I need prior automation experience?</p>
-              <p className="text-black/70">No. We start from fundamentals.</p>
+              <label className="block text-sm font-medium text-white/70 mb-2">Full Name</label>
+              <input
+                name="name"
+                value={form.name}
+                onChange={handleChange}
+                placeholder="e.g. Tunde Adeyemi"
+                required
+                className="w-full bg-white/5 border border-white/20 text-white placeholder:text-white/25 px-4 py-3 rounded-lg focus:outline-none focus:border-white/50 transition"
+              />
             </div>
 
             <div>
-              <p className="font-medium">Will sessions be recorded?</p>
-              <p className="text-black/70">Yes. Every class is recorded.</p>
+              <label className="block text-sm font-medium text-white/70 mb-2">Email Address</label>
+              <input
+                name="email"
+                type="email"
+                value={form.email}
+                onChange={handleChange}
+                placeholder="you@example.com"
+                required
+                className="w-full bg-white/5 border border-white/20 text-white placeholder:text-white/25 px-4 py-3 rounded-lg focus:outline-none focus:border-white/50 transition"
+              />
             </div>
 
             <div>
-              <p className="font-medium">Do I get a certificate?</p>
-              <p className="text-black/70">Yes — powered by AltekFlo Enterprise.</p>
+              <label className="block text-sm font-medium text-white/70 mb-2">
+                Phone Number
+                <span className="text-white/35 font-normal ml-1">(WhatsApp preferred)</span>
+              </label>
+              <input
+                name="phone"
+                type="tel"
+                value={form.phone}
+                onChange={handleChange}
+                placeholder="+234 800 000 0000"
+                required
+                className="w-full bg-white/5 border border-white/20 text-white placeholder:text-white/25 px-4 py-3 rounded-lg focus:outline-none focus:border-white/50 transition"
+              />
             </div>
 
             <div>
-              <p className="font-medium">What happens after payment?</p>
-              <p className="text-black/70">You’ll receive onboarding details.</p>
+              <label className="block text-sm font-medium text-white/70 mb-2">
+                Which best describes you?
+              </label>
+              <select
+                name="role"
+                value={form.role}
+                onChange={handleChange}
+                required
+                className="w-full bg-[#191970] border border-white/20 text-white px-4 py-3 rounded-lg focus:outline-none focus:border-white/50 transition appearance-none cursor-pointer"
+              >
+                <option value="" disabled>Select one…</option>
+                {ROLES.map(r => <option key={r} value={r}>{r}</option>)}
+              </select>
             </div>
+
+            {status === "error" && (
+              <p className="text-red-300 text-sm">
+                Something went wrong. Please try again or reach out directly.
+              </p>
+            )}
+
+            <button
+              type="submit"
+              disabled={status === "loading"}
+              className="w-full border border-white text-white px-10 py-4 font-semibold hover:bg-white hover:text-[#191970] transition rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {status === "loading" ? "Registering…" : "Reserve My Spot"}
+            </button>
+
+            <p className="text-white/25 text-xs text-center">
+              A confirmation email will be sent to you immediately after registration.
+            </p>
+
+          </form>
+        </motion.div>
+      )}
+
+      {status === "success" && (
+        <motion.div
+          key="success"
+          initial={{ opacity: 0, scale: 0.97 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.4 }}
+          className="text-center py-8 space-y-4"
+        >
+          <div className="w-14 h-14 rounded-full border border-white/30 flex items-center justify-center mx-auto mb-6">
+            <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
           </div>
+          <h3 className="text-2xl font-semibold text-white">You're in.</h3>
+          <p className="text-white/55 max-w-sm mx-auto leading-relaxed text-sm">
+            Check your inbox — we've sent everything you need to secure your spot in AutomateX Cohort 2.
+          </p>
+          <a
+            href={PAYMENT_LINK}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block mt-4 border border-white text-white px-8 py-3 font-semibold hover:bg-white hover:text-[#191970] transition rounded-lg text-sm"
+          >
+            Complete Payment Now →
+          </a>
+        </motion.div>
+      )}
 
-        </div>
-      </motion.section>
-
-      <Footer />
-
-    </main>
+    </AnimatePresence>
   );
 }

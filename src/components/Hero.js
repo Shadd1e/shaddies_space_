@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
-export default function Hero() {
+export default function Hero({ onCourseOpen }) {
   const [a, setA] = useState("");
   const [b, setB] = useState("");
 
@@ -40,15 +40,25 @@ export default function Hero() {
     >
       <div className="max-w-4xl text-4xl md:text-6xl font-semibold leading-tight space-y-3">
         <p>{a}</p>
-        <p>{b.replace("systems.", "")}<span className="text-blue-600">systems</span></p>
+        <p>
+          {b.replace("systems.", "")}
+          <span className="text-blue-600">systems</span>
+        </p>
       </div>
 
-      <div className="mt-4">
-        <a
-          href="/automatex"
+      <div className="mt-8 flex flex-wrap gap-4">
+        <button
+          onClick={onCourseOpen}
           className="inline-block border border-blue-600 px-14 py-6 text-xl font-semibold hover:bg-blue-600 hover:text-white transition"
         >
-          Automate today
+          Learn automation
+        </button>
+
+        <a
+          href="/signl"
+          className="inline-block border border-[#191970] text-[#191970] px-14 py-6 text-xl font-semibold hover:bg-[#191970] hover:text-white transition"
+        >
+          Try SIGNL
         </a>
       </div>
     </motion.section>
