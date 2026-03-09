@@ -3,18 +3,70 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const NICHES = [
-  { value: "general",  label: "General" },
-  { value: "tech",     label: "Tech" },
-  { value: "ai",       label: "AI" },
-  { value: "startup",  label: "Startup" },
-  { value: "finance",  label: "Finance" },
-  { value: "politics", label: "Politics" },
-  { value: "science",  label: "Science" },
-  { value: "health",   label: "Health" },
-  { value: "food",     label: "Food" },
-  { value: "fashion",  label: "Fashion" },
+const NICHE_GROUPS = [
+  {
+    label: "News & World",
+    niches: [
+      { value: "general",       label: "General" },
+      { value: "world",         label: "World" },
+      { value: "politics",      label: "Politics" },
+      { value: "media",         label: "Media" },
+    ],
+  },
+  {
+    label: "Business & Money",
+    niches: [
+      { value: "finance",       label: "Finance" },
+      { value: "business",      label: "Business" },
+      { value: "economics",     label: "Economics" },
+      { value: "investing",     label: "Investing" },
+      { value: "startup",       label: "Startup" },
+      { value: "real-estate",   label: "Real Estate" },
+      { value: "crypto",        label: "Crypto" },
+      { value: "forex",         label: "Forex" },
+      { value: "energy",        label: "Energy" },
+    ],
+  },
+  {
+    label: "Technology",
+    niches: [
+      { value: "tech",          label: "Tech" },
+      { value: "ai",            label: "AI" },
+      { value: "cybersecurity", label: "Cybersecurity" },
+      { value: "gaming",        label: "Gaming" },
+      { value: "space",         label: "Space" },
+    ],
+  },
+  {
+    label: "Science & Health",
+    niches: [
+      { value: "science",       label: "Science" },
+      { value: "health",        label: "Health" },
+      { value: "mental-health", label: "Mental Health" },
+      { value: "environment",   label: "Environment" },
+      { value: "climate",       label: "Climate" },
+    ],
+  },
+  {
+    label: "Culture & Life",
+    niches: [
+      { value: "entertainment", label: "Entertainment" },
+      { value: "food",          label: "Food" },
+      { value: "fashion",       label: "Fashion" },
+      { value: "travel",        label: "Travel" },
+      { value: "sports",        label: "Sports" },
+    ],
+  },
+  {
+    label: "Society",
+    niches: [
+      { value: "education",     label: "Education" },
+      { value: "law",           label: "Law" },
+    ],
+  },
 ];
+
+const ALL_NICHES = NICHE_GROUPS.flatMap(g => g.niches);
 
 const STEPS = [
   { label: "Receiving request",   duration: 1500 },
@@ -82,7 +134,7 @@ function ProcessingScreen({ niche }) {
         <div>
           <h2 className="text-xl font-semibold">Building your digest</h2>
           <p className="text-sm text-black/40 mt-0.5">
-            {NICHES.find(n => n.value === niche)?.label} · {elapsed}s elapsed
+            {ALL_NICHES.find(n => n.value === niche)?.label} · {elapsed}s elapsed
           </p>
         </div>
         <div className="w-10 h-10 rounded-full border-2 border-[#182E6F]/20 border-t-[#182E6F] animate-spin" />
@@ -168,9 +220,7 @@ export default function SignlContent() {
         body: JSON.stringify({ niche, keywords }),
       });
 
-      if (!res.ok) {
-        throw new Error(randomError());
-      }
+      if (!res.ok) throw new Error(randomError());
 
       const data = await res.json();
       const returned = data?.articles || data?.content?.articles || [];
@@ -202,32 +252,37 @@ export default function SignlContent() {
             exit={{ opacity: 0, y: -16 }}
             transition={{ duration: 0.3 }}
           >
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-widest text-black/40 mb-2">
-                  Select a niche
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {NICHES.map(n => (
-                    <button
-                      key={n.value}
-                      type="button"
-                      onClick={() => setNiche(n.value)}
-                      className={`px-4 py-1.5 rounded-full text-sm font-medium border transition-all ${
-                        niche === n.value
-                          ? "bg-[#182E6F] text-white border-[#182E6F]"
-                          : "bg-white text-black/70 border-black/20 hover:border-[#182E6F] hover:text-[#182E6F]"
-                      }`}
-                    >
-                      {n.label}
-                    </button>
-                  ))}
-                </div>
+            <form onSubmit={handleSubmit} className="space-y-5">
+
+              <div className="space-y-4">
+                {NICHE_GROUPS.map(group => (
+                  <div key={group.label}>
+                    <p className="text-xs font-semibold uppercase tracking-widest text-black/30 mb-2">
+                      {group.label}
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {group.niches.map(n => (
+                        <button
+                          key={n.value}
+                          type="button"
+                          onClick={() => setNiche(n.value)}
+                          className={`px-4 py-1.5 rounded-full text-sm font-medium border transition-all ${
+                            niche === n.value
+                              ? "bg-[#182E6F] text-white border-[#182E6F]"
+                              : "bg-white text-black/70 border-black/20 hover:border-[#182E6F] hover:text-[#182E6F]"
+                          }`}
+                        >
+                          {n.label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                ))}
               </div>
 
               <input
                 name="keywords"
-                placeholder="Optional keywords (e.g. agents, funding, research…)"
+                placeholder="Optional keywords (e.g. interest rates, OpenAI, Ronaldo…)"
                 className="w-full p-3 rounded-lg border border-black/20 text-black placeholder:text-black/30 focus:outline-none focus:border-[#182E6F] transition"
               />
 
@@ -261,7 +316,7 @@ export default function SignlContent() {
                 <h2 className="text-2xl font-semibold">Latest Updates</h2>
                 <div className="flex items-center gap-3">
                   <span className="text-xs font-medium uppercase tracking-widest text-black/30 border border-black/10 px-3 py-1 rounded-full">
-                    {NICHES.find(n => n.value === niche)?.label}
+                    {ALL_NICHES.find(n => n.value === niche)?.label}
                   </span>
                   <button
                     onClick={() => setView("form")}
