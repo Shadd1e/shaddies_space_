@@ -1,32 +1,19 @@
-"use client";
-
-import { useState } from "react";
-import HeaderBanner from "@/components/HeaderBanner";
-import Hero from "@/components/Hero";
+import HomeClient from "@/components/HomeClient";
 import Bridge from "@/components/Bridge";
 import BookSection from "@/components/BookSection";
 import Testimonials from "@/components/Testimonials";
-import AutomateX from "@/components/AutomateXSignup";
+import AutomateX from "@/components/AutomateX";
 import Footer from "@/components/Footer";
-import CoursePopup from "@/components/Coursepopup";
-import CohortPopup from "@/components/Cohortpopup";
 
 export default function Home() {
-  const [courseOpen, setCourseOpen] = useState(false);
-  const [cohortOpen, setCohortOpen] = useState(false);
-
   return (
     <>
-      <HeaderBanner onCohortOpen={() => setCohortOpen(true)} />
-      <Hero onCourseOpen={() => setCourseOpen(true)} />
+      <HomeClient />
       <Bridge />
       <BookSection />
       <Testimonials />
       <AutomateX />
       <Footer />
-
-      <CoursePopup open={courseOpen} onClose={() => setCourseOpen(false)} />
-      <CohortPopup open={cohortOpen} onClose={() => setCohortOpen(false)} />
     </>
   );
 }
