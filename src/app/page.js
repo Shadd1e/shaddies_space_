@@ -1,19 +1,26 @@
-import HomeClient from "@/components/HomeClient";
+import Navbar from "@/components/Navbar";
+import HeaderBanner from "@/components/HeaderBanner";
+import Hero from "@/components/Hero";
+import SignlSection from "@/components/SignlSection";
 import Bridge from "@/components/Bridge";
 import BookSection from "@/components/BookSection";
+import AboutSection from "@/components/AboutSection";
 import Testimonials from "@/components/Testimonials";
-import AutomateX from "@/components/AutomateXSignup";
+import AutomateX from "@/components/AutomateX";
 import Footer from "@/components/Footer";
-import AutomateXSignup from "./automatex/page";
 
 export default function Home() {
   return (
     <>
-      <HomeClient />
+      <Navbar />
+      <HeaderBanner />
+      <Hero />
+      <SignlSection />
       <Bridge />
       <BookSection />
+      <AboutSection />
       <Testimonials />
-      <AutomateXSignup />
+      <AutomateX />
       <Footer />
     </>
   );

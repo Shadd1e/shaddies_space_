@@ -2,8 +2,9 @@
 
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
-export default function Hero({ onCourseOpen }) {
+export default function Hero() {
   const [a, setA] = useState("");
   const [b, setB] = useState("");
 
@@ -47,19 +48,19 @@ export default function Hero({ onCourseOpen }) {
       </div>
 
       <div className="mt-8 flex flex-wrap gap-4">
-        <button
-          onClick={onCourseOpen}
+        <Link
+          href="/n8n"
           className="inline-block border border-blue-600 px-14 py-6 text-xl font-semibold hover:bg-blue-600 hover:text-white transition"
         >
-          Learn automation
-        </button>
+          Get the unfair advantage
+        </Link>
 
-        <a
+        <Link
           href="/signl"
           className="inline-block border border-[#191970] text-[#191970] px-14 py-6 text-xl font-semibold hover:bg-[#191970] hover:text-white transition"
         >
-          Try SIGNL
-        </a>
+          Try SIGNL free
+        </Link>
       </div>
     </motion.section>
   );
