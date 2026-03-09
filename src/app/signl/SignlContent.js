@@ -24,17 +24,27 @@ const STEPS = [
   { label: "Finalising results",  duration: 2000 },
 ];
 
+const ERROR_MESSAGES = [
+  "Our feed servers are taking a breather. Give it another shot in a moment.",
+  "We hit a snag pulling the latest articles. Please try again.",
+  "The AI is briefly unavailable — this happens occasionally. Try again in a few seconds.",
+  "We're experiencing higher than usual traffic. Please try again shortly.",
+  "Something interrupted the digest. It's on our end, not yours — please retry.",
+];
+
 const WEBHOOK = "https://signl.shaddies.space/webhook/generate-digest";
 
 // ── Processing Screen ─────────────────────────────────────────────────────────
 function ProcessingScreen({ niche }) {
-  const [currentStep, setCurrentStep]     = useState(0);
+  const [currentStep, setCurrentStep]       = useState(0);
   const [completedSteps, setCompletedSteps] = useState([]);
-  const [elapsed, setElapsed]             = useState(0);
+  const [elapsed, setElapsed]               = useState(0);
   const startTime = useRef(Date.now());
 
   useEffect(() => {
-    const t = setInterval(() => setElapsed(Math.floor((Date.now() - startTime.current) / 1000)), 500);
+    const t = setInterval(() => {
+      setElapsed(Math.floor((Date.now() - startTime.current) / 1000));
+    }, 500);
     return () => clearInterval(t);
   }, []);
 
@@ -139,17 +149,8 @@ export default function SignlContent() {
   const [articles, setArticles] = useState([]);
   const [errorMsg, setErrorMsg] = useState("");
 
-  async function pollForResult(jobId, attempts = 0) {
-    if (attempts > 10) throw new Error("Your digest took too long. Please try again.");
-    await new Promise(r => setTimeout(r, 3000));
-    const res  = await fetch(WEBHOOK, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ jobId }),
-    });
-    const data = await res.json();
-    if (data?.status === "processing") return pollForResult(jobId, attempts + 1);
-    return data;
+  function randomError() {
+    return ERROR_MESSAGES[Math.floor(Math.random() * ERROR_MESSAGES.length)];
   }
 
   async function handleSubmit(e) {
@@ -167,21 +168,23 @@ export default function SignlContent() {
         body: JSON.stringify({ niche, keywords }),
       });
 
-      if (!res.ok) throw new Error("The server returned an error. Please try again.");
-
-      let data = await res.json();
-      if (res.status === 202 && data?.jobId) {
-        data = await pollForResult(data.jobId);
+      if (!res.ok) {
+        throw new Error(randomError());
       }
 
+      const data = await res.json();
       const returned = data?.articles || data?.content?.articles || [];
-      if (!returned.length) throw new Error("No articles came back. Try different keywords.");
+
+      if (!returned.length) {
+        throw new Error("No articles matched your request. Try a different niche or broader keywords.");
+      }
 
       setArticles(returned);
       setView("results");
+
     } catch (err) {
       console.error(err);
-      setErrorMsg(err.message || "Something went wrong. Please try again.");
+      setErrorMsg(err.message || randomError());
       setView("error");
     }
   }
@@ -313,10 +316,11 @@ export default function SignlContent() {
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            className="rounded-xl border border-red-200 bg-red-50 p-8 text-center space-y-4"
+            className="rounded-xl border border-black/10 bg-white p-8 text-center space-y-4"
           >
-            <div className="text-3xl">⚠️</div>
-            <p className="text-red-700 font-medium">{errorMsg}</p>
+            <p className="text-4xl">🛰️</p>
+            <h3 className="font-semibold text-lg">We hit a snag</h3>
+            <p className="text-black/50 text-sm max-w-sm mx-auto">{errorMsg}</p>
             <button
               onClick={() => setView("form")}
               className="mt-2 px-6 py-2.5 rounded-lg bg-[#182E6F] text-white text-sm font-semibold hover:opacity-90 transition"
