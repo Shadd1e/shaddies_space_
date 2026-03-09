@@ -3,8 +3,8 @@
 import { useState } from "react";
 import HeaderBanner from "@/components/HeaderBanner";
 import Hero from "@/components/Hero";
-import CoursePopup from "@/components/CoursePopup";
-import CohortPopup from "@/components/CohortPopup";
+import CoursePopup from "@/components/Coursepopup";
+import CohortPopup from "@/components/Cohortpopup";
 
 export default function HomeClient() {
   const [courseOpen, setCourseOpen] = useState(false);
