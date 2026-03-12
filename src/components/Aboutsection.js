@@ -29,21 +29,18 @@ export default function AboutSection() {
           </p>
 
           <h2 className="text-3xl md:text-4xl font-semibold mb-6 leading-tight">
-            Engineer. Builder.<br />Occasional classical music addict.
+            Engineer. Builder.<br />Recovering classical music addict.
           </h2>
 
-          <p className="text-lg text-black/65 leading-relaxed mb-6">
-            Trained at Rivers State University, I build systems by doing what I enjoy
-            most — finding elegant solutions to stubborn problems. I work primarily
-            with Python and modern backend technologies, combining engineering
-            discipline with a deep command of English grammar and style to create
-            clear systems, clean documentation, and scalable products.
-          </p>
-
           <p className="text-lg text-black/65 leading-relaxed mb-10">
-            I founded Shaddies Space, have developed solutions used by several
-            multinational teams, and occasionally struggle with an addiction to
-            classical music.
+            I build things that run without me. That's the whole philosophy.
+            Systems, automations, products — if it needs constant supervision,
+            it's not finished yet. I founded Shaddies Space as a place where
+            that kind of thinking lives. I've built systems for teams I'll never
+            meet in countries I've never visited, built solutions that now serve
+            multinational teams, written a book about why nobody is coming to
+            save you, and I'm currently on my third attempt to quit classical
+            music. It hasn't worked.
           </p>
 
           <a
