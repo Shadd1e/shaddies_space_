@@ -1,5 +1,4 @@
 "use client";
-
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import Link from "next/link";
@@ -7,19 +6,19 @@ import Link from "next/link";
 export default function Hero() {
   const [a, setA] = useState("");
   const [b, setB] = useState("");
-  const t1 = "Humans burn out.";
-  const t2 = "Smart businesses run on systems.";
+  const t1 = "The internet has no borders.";
+  const t2 = "Neither do threats.";
 
   useEffect(() => {
     let i = 0;
-    const t = setInterval(() => { setA(t1.slice(0, ++i)); if (i === t1.length) clearInterval(t); }, 40);
+    const t = setInterval(() => { setA(t1.slice(0, ++i)); if (i === t1.length) clearInterval(t); }, 45);
     return () => clearInterval(t);
   }, []);
 
   useEffect(() => {
     if (a !== t1) return;
     let i = 0;
-    const t = setInterval(() => { setB(t2.slice(0, ++i)); if (i === t2.length) clearInterval(t); }, 40);
+    const t = setInterval(() => { setB(t2.slice(0, ++i)); if (i === t2.length) clearInterval(t); }, 45);
     return () => clearInterval(t);
   }, [a]);
 
@@ -28,71 +27,74 @@ export default function Hero() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }}
-      className="min-h-[85vh] px-6 pt-44 pb-24 flex flex-col justify-center system-grid"
+      className="min-h-[90vh] px-6 pt-44 pb-24 flex flex-col justify-center cyber-grid relative overflow-hidden"
     >
-      <div className="max-w-5xl mx-auto w-full">
+      {/* Ambient orbs */}
+      <div className="absolute top-1/3 left-1/4 w-96 h-96 rounded-full opacity-10 pointer-events-none"
+        style={{background:"radial-gradient(circle, var(--neon), transparent 70%)",filter:"blur(60px)"}} />
+      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full opacity-8 pointer-events-none"
+        style={{background:"radial-gradient(circle, var(--neon2), transparent 70%)",filter:"blur(80px)"}} />
+
+      <div className="max-w-6xl mx-auto w-full relative z-10">
         <motion.p
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4, duration: 0.6 }}
-          className="text-xs font-semibold uppercase tracking-widest text-[#191970]/45 mb-10"
+          transition={{ delay: 0.3, duration: 0.6 }}
+          className="mono text-xs uppercase tracking-widest mb-10"
+          style={{color:"var(--neon)"}}
         >
-          Shaddies.Space — Automation Education & Tools
+          Shaddies.Space — Cybersecurity & Web3 Education
         </motion.p>
 
-        <div className="text-4xl md:text-6xl lg:text-7xl font-semibold leading-[1.1] space-y-2 mb-8">
-          <p className="text-black/80">{a}</p>
-          <p>
-            {b.replace("systems.", "")}
-            {b.includes("systems") && <span className="text-blue-600">systems.</span>}
-          </p>
+        <div className="text-4xl md:text-6xl lg:text-7xl font-bold leading-[1.1] space-y-2 mb-8">
+          <p style={{color:"var(--text)"}}>{a}<span className="animate-pulse" style={{color:"var(--neon)"}}>|</span></p>
+          <p style={{color:"var(--neon)"}}>{b}</p>
         </div>
 
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 2.2, duration: 0.8 }}
-          className="text-lg md:text-xl text-black/50 max-w-2xl leading-relaxed mb-12"
+          transition={{ delay: 2.4, duration: 0.8 }}
+          className="text-lg md:text-xl max-w-2xl leading-relaxed mb-12"
+          style={{color:"var(--muted)"}}
         >
-          Learn to build the automations that handle your sales, clients, content,
-          and operations — so your business keeps moving while you're not watching.
+          Shaddies Space is a technology education corporation equipping the next generation of cybersecurity professionals and Web3 builders with real, deployable skills.
         </motion.p>
 
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 2.5, duration: 0.6 }}
+          transition={{ delay: 2.7, duration: 0.6 }}
           className="flex flex-wrap gap-4 mb-20"
         >
-          <Link
-            href="/n8n"
-            className="group inline-block bg-[#191970] text-white px-12 py-5 text-base font-semibold hover:bg-blue-800 transition-all duration-300"
-          >
-            Register for AutomateX →
+          <Link href="/cybersecurity"
+            className="inline-block px-10 py-4 text-base font-bold transition-all duration-300 neon-glow"
+            style={{background:"var(--neon)",color:"#050810"}}>
+            Cybersecurity Course →
           </Link>
-          <Link
-            href="/signl"
-            className="inline-block border border-[#191970] text-[#191970] px-12 py-5 text-base font-semibold hover:bg-[#191970] hover:text-white transition-all duration-300"
-          >
-            Try SIGNL free
+          <Link href="/web3"
+            className="inline-block border px-10 py-4 text-base font-semibold transition-all duration-300 hover:bg-white/5"
+            style={{color:"var(--neon2)",borderColor:"rgba(0,200,255,0.4)"}}>
+            Explore Web3 →
           </Link>
         </motion.div>
 
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 2.9, duration: 0.8 }}
-          className="flex flex-wrap gap-10 items-center border-t border-black/8 pt-10"
+          transition={{ delay: 3.0, duration: 0.8 }}
+          className="flex flex-wrap gap-10 items-center pt-10"
+          style={{borderTop:"1px solid rgba(0,255,180,0.1)"}}
         >
           {[
-            { stat: "8",      label: "Live modules" },
-            { stat: "40",     label: "Done-for-you templates" },
-            { stat: "₦15k",   label: "Cohort 2 · May 2026" },
-            { stat: "Cohort 1", label: "Already complete" },
+            { stat: "3", label: "Active Courses" },
+            { stat: "7", label: "Days to Orientation" },
+            { stat: "6", label: "Web3 Branches" },
+            { stat: "24/7", label: "Community Access" },
           ].map(({ stat, label }) => (
             <div key={label}>
-              <p className="text-2xl md:text-3xl font-bold text-[#191970]">{stat}</p>
-              <p className="text-xs text-black/40 uppercase tracking-wider mt-1">{label}</p>
+              <p className="text-2xl md:text-3xl font-bold mono" style={{color:"var(--neon)"}}>{stat}</p>
+              <p className="text-xs uppercase tracking-wider mt-1" style={{color:"var(--muted)"}}>{label}</p>
             </div>
           ))}
         </motion.div>
