@@ -65,7 +65,7 @@ const TIERS = [
       "Module progress tracking",
     ],
     cta: "Enroll — Foundation",
-    href: "#payment-placeholder",
+    href: "https://flutterwave.com/pay/asvsiep0gsl1",
     note: "Best for individuals exploring cybersecurity for the first time.",
     hero: false,
   },
@@ -97,7 +97,7 @@ const TIERS = [
       "1-on-1 mentorship session (30 mins)",
     ],
     cta: "Enroll — Professional",
-    href: "#payment-placeholder",
+    href: "https://flutterwave.com/pay/edpii7x0ag8w",
     note: "The complete package. Built for career changers and serious learners.",
     hero: true,
   },
@@ -129,7 +129,7 @@ const TIERS = [
       "Verified corporate badge on alumni network",
     ],
     cta: "Enroll — Enterprise",
-    href: "#payment-placeholder",
+    href: "https://flutterwave.com/pay/68izpy81jttw",
     note: "For companies, teams, and professionals who need the full ecosystem.",
     hero: false,
   },
@@ -189,7 +189,7 @@ export default function CybersecurityPage() {
                 <Countdown />
               </div>
               <div className="flex flex-wrap gap-4 text-sm mt-6" style={{color:"var(--muted)"}}>
-                <span className="flex items-center gap-2">🏛 Physical — Lagos</span>
+                <span className="flex items-center gap-2">🏛 Physical — Lagos and Warri</span>
                 <span className="flex items-center gap-2">💻 Online — Zoom</span>
                 <span className="flex items-center gap-2">📅 Starts: April 3, 2026</span>
                 <span className="flex items-center gap-2">🕘 9:00 AM WAT</span>
@@ -225,7 +225,7 @@ export default function CybersecurityPage() {
           <div className="max-w-6xl mx-auto">
             <p className="mono text-xs uppercase tracking-widest mb-3" style={{color:"var(--neon)"}}>Pricing</p>
             <h2 className="text-3xl font-bold mb-4">Choose your tier.</h2>
-            <p className="mb-14" style={{color:"var(--muted)"}}>All tiers include orientation access. Payment links go live at orientation.</p>
+            <p className="mb-14" style={{color:"var(--muted)"}}>Choose the tier that fits your goals. All tiers include orientation access.</p>
             <div className="grid md:grid-cols-3 gap-6 items-start">
               {TIERS.map((tier, i) => (
                 <motion.div key={tier.name}
@@ -255,13 +255,13 @@ export default function CybersecurityPage() {
                   </ul>
                   <p className="text-xs mb-6 italic" style={{color:"var(--muted)"}}>{tier.note}</p>
                   <a href={tier.href}
+                    target="_blank" rel="noopener noreferrer"
                     className="block text-center py-4 rounded-lg font-bold text-sm transition-all duration-300"
                     style={tier.hero
                       ? {background:"var(--neon)",color:"#050810"}
                       : {border:`1px solid ${tier.borderColor}`,color:tier.color}}>
                     {tier.cta}
                   </a>
-                  <p className="text-center text-xs mt-3 mono" style={{color:"var(--muted)"}}>Payment link active at orientation</p>
                 </motion.div>
               ))}
             </div>

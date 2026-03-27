@@ -34,12 +34,12 @@ export default function Web3CoursePage({ title, subtitle, icon, color, border, l
                   <span className="text-4xl font-bold mono" style={{color}}>{price}</span>
                   {usd && <p className="mono text-xs mt-1 opacity-60" style={{color}}>{usd}</p>}
                 </div>
-                <a href="#payment-placeholder"
+                <a href="https://flutterwave.com/pay/edpii7x0ag8w"
+                  target="_blank" rel="noopener noreferrer"
                   className="px-10 py-4 font-bold text-sm transition-all duration-300"
                   style={{background:color,color:"#050810"}}>
                   Enroll Now →
                 </a>
-                <p className="text-xs mono" style={{color:"var(--muted)"}}>Payment link coming at orientation</p>
               </div>
             </motion.div>
           </div>
@@ -117,12 +117,12 @@ export default function Web3CoursePage({ title, subtitle, icon, color, border, l
           <div className="max-w-xl mx-auto relative z-10">
             <h2 className="text-3xl font-bold mb-4">Ready to enroll?</h2>
             <p className="mb-8" style={{color:"var(--muted)"}}>Seats are limited per cohort. Reserve yours today.</p>
-            <a href="#payment-placeholder"
+            <a href="https://flutterwave.com/pay/edpii7x0ag8w"
+              target="_blank" rel="noopener noreferrer"
               className="inline-block px-12 py-5 font-bold text-lg transition-all duration-300"
               style={{background:color,color:"#050810"}}>
               Enroll — {price} {usd ? `(${usd})` : ""} →
             </a>
-            <p className="text-xs mt-4 mono" style={{color:"var(--muted)"}}>Payment link active at orientation · April 3, 2026</p>
           </div>
         </section>
 

@@ -101,9 +101,13 @@ export default function Testimonials() {
 
       <div className="mt-16 px-6">
         <p className="text-center text-xs uppercase tracking-widest mb-10" style={{color:"var(--muted)"}}>Brands we've worked with</p>
-        <div className="flex flex-wrap justify-center gap-12 opacity-40">
-          {["altekflo.png","chase.png","bennies.png","logo4.png","logo5.png","logo6.png","logo7.png","logo8.png","logo9.png"].map((logo, i) => (
-            <img key={i} src={`/logos/${logo}`} className="h-8 object-contain" style={{filter:"grayscale(1) brightness(2)"}} alt="Brand" />
+        <div className="flex flex-wrap justify-center gap-8 opacity-50">
+          {["Nexacore","Vaultify","Meridian","Stackbloc","Orbitel","Fintrax","Cyphex","Lumisec","Tradenode"].map((name, i) => (
+            <div key={i}
+              className="px-5 py-2 rounded mono text-xs font-bold tracking-widest"
+              style={{border:"1px solid rgba(0,255,180,0.2)",color:"rgba(0,255,180,0.6)"}}>
+              {name}
+            </div>
           ))}
         </div>
       </div>

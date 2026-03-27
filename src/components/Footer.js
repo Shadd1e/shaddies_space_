@@ -34,6 +34,9 @@ export default function Footer() {
         <p className="text-xs mono" style={{color:"var(--muted)"}}>
           © 2026 Shaddies.Space Corporation. All rights reserved.
         </p>
+        <p className="text-xs mono mt-3" style={{color:"rgba(0,255,180,0.3)"}}>
+          Powered by <span style={{color:"rgba(0,255,180,0.6)"}}>The AltekFlo Enterprise</span>
+        </p>
       </div>
     </motion.footer>
   );
