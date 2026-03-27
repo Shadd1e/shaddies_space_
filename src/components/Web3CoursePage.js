@@ -41,7 +41,6 @@ export default function Web3CoursePage({ title, subtitle, icon, color, border, l
                 </a>
                 <p className="text-xs mono" style={{color:"var(--muted)"}}>Payment link coming at orientation</p>
               </div>
-              </div>
             </motion.div>
           </div>
         </section>
