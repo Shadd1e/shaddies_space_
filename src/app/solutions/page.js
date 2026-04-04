@@ -90,7 +90,7 @@ export default function SolutionsPage() {
               onClick={() => handleSelect(s.name)}
               className="
                 w-full
-                border border-[#191970]
+                border border-[#0a1f5c]
                 px-8 py-6
                 transition
                 glow-hover
@@ -149,7 +149,7 @@ export default function SolutionsPage() {
             <textarea name="description" placeholder="Describe your need" required rows={5} className="w-full border px-4 py-3" />
             <textarea name="questions" placeholder="Any further questions?" rows={4} className="w-full border px-4 py-3" />
 
-            <button type="submit" className="border border-[#191970] px-10 py-4 hover:bg-[#191970] hover:text-white transition">
+            <button type="submit" className="border border-[#0a1f5c] px-10 py-4 hover:bg-[#0a1f5c] hover:text-white transition">
               Submit request
             </button>
 

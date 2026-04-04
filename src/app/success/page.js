@@ -23,16 +23,16 @@ export default function SuccessPage() {
           initial={{ scale: 0.5, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          className="w-16 h-16 border border-[#191970]/20 flex items-center justify-center mx-auto mb-8"
+          className="w-16 h-16 border border-[#0a1f5c]/20 flex items-center justify-center mx-auto mb-8"
         >
-          <CheckCircle size={28} className="text-[#191970]" strokeWidth={1.5} />
+          <CheckCircle size={28} className="text-[#0a1f5c]" strokeWidth={1.5} />
         </motion.div>
 
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.4 }}
-          className="text-xs font-semibold uppercase tracking-widest text-[#191970]/45 mb-4"
+          className="text-xs font-semibold uppercase tracking-widest text-[#0a1f5c]/45 mb-4"
         >
           AutomateX — Cohort 2
         </motion.p>
@@ -64,7 +64,7 @@ export default function SuccessPage() {
           className="text-sm text-black/35"
         >
           Questions? Reach out on{" "}
-          <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="text-[#191970] underline hover:no-underline">
+          <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="text-[#0a1f5c] underline hover:no-underline">
             WhatsApp
           </a>
         </motion.p>
@@ -77,7 +77,7 @@ export default function SuccessPage() {
         transition={{ delay: 1.0, duration: 0.7 }}
         className="max-w-xl w-full border border-black/8 bg-white/70 p-8 mb-6"
       >
-        <p className="text-xs font-semibold uppercase tracking-widest text-[#191970]/45 mb-3">
+        <p className="text-xs font-semibold uppercase tracking-widest text-[#0a1f5c]/45 mb-3">
           While you wait
         </p>
         <h2 className="text-xl font-semibold mb-3 leading-snug">
@@ -90,7 +90,7 @@ export default function SuccessPage() {
         </p>
         <Link
           href="/signl"
-          className="group inline-flex items-center gap-2 border border-[#191970] text-[#191970] px-6 py-3 text-sm font-semibold hover:bg-[#191970] hover:text-white transition-all duration-200"
+          className="group inline-flex items-center gap-2 border border-[#0a1f5c] text-[#0a1f5c] px-6 py-3 text-sm font-semibold hover:bg-[#0a1f5c] hover:text-white transition-all duration-200"
         >
           Try SIGNL free
           <ArrowRight size={14} strokeWidth={2} className="group-hover:translate-x-1 transition-transform duration-150" />
@@ -102,7 +102,7 @@ export default function SuccessPage() {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1.2, duration: 0.7 }}
-        className="max-w-xl w-full border border-[#191970] bg-[#191970] text-white p-8"
+        className="max-w-xl w-full border border-[#0a1f5c] bg-[#0a1f5c] text-white p-8"
       >
         <p className="text-xs font-semibold uppercase tracking-widest text-white/35 mb-3">
           Affiliate programme
@@ -119,7 +119,7 @@ export default function SuccessPage() {
           href={WHATSAPP_LINK}
           target="_blank"
           rel="noopener noreferrer"
-          className="group inline-flex items-center gap-3 border border-white text-white px-6 py-3 text-sm font-semibold hover:bg-white hover:text-[#191970] transition-all duration-200"
+          className="group inline-flex items-center gap-3 border border-white text-white px-6 py-3 text-sm font-semibold hover:bg-white hover:text-[#0a1f5c] transition-all duration-200"
         >
           <MessageCircle size={15} strokeWidth={1.5} className="group-hover:scale-110 transition-transform duration-150" />
           Join as an affiliate
@@ -134,7 +134,7 @@ export default function SuccessPage() {
         transition={{ delay: 1.5 }}
         className="mt-12"
       >
-        <Link href="/" className="text-sm text-black/35 hover:text-[#191970] transition-colors duration-150">
+        <Link href="/" className="text-sm text-black/35 hover:text-[#0a1f5c] transition-colors duration-150">
           ← Back to Shaddies.Space
         </Link>
       </motion.div>

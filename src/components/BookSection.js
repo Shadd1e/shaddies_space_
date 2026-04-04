@@ -9,7 +9,7 @@ export default function BookSection() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.8, ease: "easeOut" }}
-      className="px-6 py-28 bg-[#191970] text-white"
+      className="px-6 py-28 bg-[#0a1f5c] text-white"
     >
       <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
 
@@ -35,7 +35,7 @@ export default function BookSection() {
             <a
               href="https://www.amazon.com/dp/B0FP81DLXJ"
               target="_blank"
-              className="border border-white px-8 py-4 hover:bg-white hover:text-[#191970] transition"
+              className="border border-white px-8 py-4 hover:bg-white hover:text-[#0a1f5c] transition"
             >
               Buy on Amazon
             </a>
@@ -43,7 +43,7 @@ export default function BookSection() {
             <a
               href="https://selar.com/q6nw278862"
               target="_blank"
-              className="border border-white px-8 py-4 hover:bg-white hover:text-[#191970] transition"
+              className="border border-white px-8 py-4 hover:bg-white hover:text-[#0a1f5c] transition"
             >
               Get on Selar
             </a>

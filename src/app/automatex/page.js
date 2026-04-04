@@ -117,7 +117,7 @@ export default function AutomateXSignup() {
                 value={form.role}
                 onChange={handleChange}
                 required
-                className="w-full bg-[#191970] border border-white/20 text-white px-4 py-3 rounded-lg focus:outline-none focus:border-white/50 transition appearance-none cursor-pointer"
+                className="w-full bg-[#0a1f5c] border border-white/20 text-white px-4 py-3 rounded-lg focus:outline-none focus:border-white/50 transition appearance-none cursor-pointer"
               >
                 <option value="" disabled>Select one…</option>
                 {ROLES.map(r => <option key={r} value={r}>{r}</option>)}
@@ -133,7 +133,7 @@ export default function AutomateXSignup() {
             <button
               type="submit"
               disabled={status === "loading"}
-              className="w-full border border-white text-white px-10 py-4 font-semibold hover:bg-white hover:text-[#191970] transition rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full border border-white text-white px-10 py-4 font-semibold hover:bg-white hover:text-[#0a1f5c] transition rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {status === "loading" ? "Registering…" : "Reserve My Spot"}
             </button>
@@ -167,7 +167,7 @@ export default function AutomateXSignup() {
             href={PAYMENT_LINK}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block mt-4 border border-white text-white px-8 py-3 font-semibold hover:bg-white hover:text-[#191970] transition rounded-lg text-sm"
+            className="inline-block mt-4 border border-white text-white px-8 py-3 font-semibold hover:bg-white hover:text-[#0a1f5c] transition rounded-lg text-sm"
           >
             Complete Payment Now →
           </a>

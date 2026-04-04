@@ -13,7 +13,7 @@ export default function Bridge() {
     >
       <div className="max-w-6xl mx-auto">
 
-        <div className="asimovian text-xs text-[#191970] mb-6">
+        <div className="asimovian text-xs text-[#0a1f5c] mb-6">
           SHADDIES.SPACE
         </div>
 
@@ -26,14 +26,14 @@ export default function Bridge() {
           <a
             href="https://calendar.app.google/9QaFeGRrmzqX7s2z7"
             target="_blank"
-            className="border border-[#191970] text-[#191970] px-7 py-3 hover:bg-[#191970] hover:text-white transition"
+            className="border border-[#0a1f5c] text-[#0a1f5c] px-7 py-3 hover:bg-[#0a1f5c] hover:text-white transition"
           >
             Book a meeting
           </a>
 
           <a
             href="/solutions"
-            className="border border-[#191970] text-[#191970] px-7 py-3 hover:bg-[#191970] hover:text-white transition"
+            className="border border-[#0a1f5c] text-[#0a1f5c] px-7 py-3 hover:bg-[#0a1f5c] hover:text-white transition"
           >
             Explore solutions
           </a>

@@ -26,7 +26,7 @@ function CohortPopup({ open, onClose }) {
             transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
             className="fixed inset-x-0 bottom-0 md:inset-0 md:flex md:items-center md:justify-center z-[201] px-4 pb-4 md:p-6"
           >
-            <div className="relative bg-[#191970] w-full max-w-lg rounded-xl overflow-hidden shadow-2xl max-h-[90vh] overflow-y-auto">
+            <div className="relative bg-[#0a1f5c] w-full max-w-lg rounded-xl overflow-hidden shadow-2xl max-h-[90vh] overflow-y-auto">
               <div className="px-8 pt-8 pb-2">
                 <p className="text-xs font-semibold uppercase tracking-widest text-white/40 mb-2">AutomateX — Cohort 2</p>
                 <h2 className="text-2xl font-semibold text-white">Reserve your seat.</h2>
@@ -62,7 +62,7 @@ export default function AutomateX() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
-        className="px-6 py-28 bg-[#191970] text-white"
+        className="px-6 py-28 bg-[#0a1f5c] text-white"
       >
         <div className="max-w-5xl mx-auto">
           <p className="text-xs font-semibold uppercase tracking-widest text-white/35 mb-4">
@@ -105,7 +105,7 @@ export default function AutomateX() {
 
               <button
                 onClick={() => setOpen(true)}
-                className="mt-6 border border-white text-white px-10 py-4 font-semibold hover:bg-white hover:text-[#191970] transition"
+                className="mt-6 border border-white text-white px-10 py-4 font-semibold hover:bg-white hover:text-[#0a1f5c] transition"
               >
                 Secure your seat →
               </button>

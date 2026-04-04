@@ -26,7 +26,7 @@ export default function CohortPopup({ open, onClose }) {
             transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
             className="fixed inset-x-0 bottom-0 md:inset-0 md:flex md:items-center md:justify-center z-[201] px-4 pb-4 md:p-6"
           >
-            <div className="relative bg-[#191970] w-full max-w-lg rounded-xl overflow-hidden shadow-2xl max-h-[90vh] overflow-y-auto">
+            <div className="relative bg-[#0a1f5c] w-full max-w-lg rounded-xl overflow-hidden shadow-2xl max-h-[90vh] overflow-y-auto">
 
               <div className="px-8 pt-8 pb-2">
                 <p className="text-xs font-semibold uppercase tracking-widest text-white/40 mb-2">

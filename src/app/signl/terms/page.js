@@ -102,7 +102,7 @@ export default function SignlTermsPage() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
-        className="px-6 py-28 bg-[#191970] text-white"
+        className="px-6 py-28 bg-[#0a1f5c] text-white"
       >
         <div className="max-w-5xl mx-auto max-w-3xl">
           <h2 className="text-3xl font-semibold mb-6">Contact</h2>

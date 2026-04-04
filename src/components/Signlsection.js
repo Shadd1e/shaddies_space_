@@ -31,7 +31,7 @@ export default function SignlSection() {
           </p>
           <Link
             href="/signl"
-            className="inline-block border border-[#191970] text-[#191970] px-10 py-4 font-semibold hover:bg-[#191970] hover:text-white transition"
+            className="inline-block border border-[#0a1f5c] text-[#0a1f5c] px-10 py-4 font-semibold hover:bg-[#0a1f5c] hover:text-white transition"
           >
             Try SIGNL free →
           </Link>
@@ -46,7 +46,7 @@ export default function SignlSection() {
             { label: "Instant results",      desc: "No account, no friction" },
           ].map(item => (
             <div key={item.label} className="border border-black/8 bg-white p-5 rounded-lg">
-              <p className="font-semibold text-sm text-[#191970] mb-1">{item.label}</p>
+              <p className="font-semibold text-sm text-[#0a1f5c] mb-1">{item.label}</p>
               <p className="text-xs text-black/45">{item.desc}</p>
             </div>
           ))}

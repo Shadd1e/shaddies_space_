@@ -172,8 +172,8 @@ function CTAButton({ light = false, className = "" }) {
       rel="noopener noreferrer"
       className={`group inline-flex items-center gap-3 px-10 py-4 text-base font-semibold border transition-all duration-300 ${
         light
-          ? "border-white text-white hover:bg-white hover:text-[#191970]"
-          : "border-[#191970] text-[#191970] hover:bg-[#191970] hover:text-white"
+          ? "border-white text-white hover:bg-white hover:text-[#0a1f5c]"
+          : "border-[#0a1f5c] text-[#0a1f5c] hover:bg-[#0a1f5c] hover:text-white"
       } ${className}`}
     >
       Register for Cohort 2 — ₦15,000
@@ -190,9 +190,9 @@ function FAQItem({ q, a }) {
       onClick={() => setOpen(o => !o)}
     >
       <div className="flex items-center justify-between gap-4">
-        <span className="font-medium group-hover:text-[#191970] transition-colors duration-200">{q}</span>
+        <span className="font-medium group-hover:text-[#0a1f5c] transition-colors duration-200">{q}</span>
         <motion.div animate={{ rotate: open ? 45 : 0 }} transition={{ duration: 0.2 }}>
-          <Plus size={15} className="flex-shrink-0 text-[#191970]" strokeWidth={2} />
+          <Plus size={15} className="flex-shrink-0 text-[#0a1f5c]" strokeWidth={2} />
         </motion.div>
       </div>
       <AnimatePresence>
@@ -315,8 +315,8 @@ export default function CohortPage() {
           <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
             {WHAT_YOU_GET.map(({ Icon, title, desc }, i) => (
               <FadeIn key={title} delay={i * 0.07}>
-                <div className="border border-black/8 bg-white p-6 hover:border-[#191970]/30 hover:shadow-md hover:-translate-y-1 transition-all duration-300 group">
-                  <Icon size={18} className="text-[#191970] mb-4 group-hover:scale-110 transition-transform duration-200" strokeWidth={1.5} />
+                <div className="border border-black/8 bg-white p-6 hover:border-[#0a1f5c]/30 hover:shadow-md hover:-translate-y-1 transition-all duration-300 group">
+                  <Icon size={18} className="text-[#0a1f5c] mb-4 group-hover:scale-110 transition-transform duration-200" strokeWidth={1.5} />
                   <p className="font-semibold mb-2 text-sm">{title}</p>
                   <p className="text-xs text-black/45 leading-relaxed">{desc}</p>
                 </div>
@@ -343,7 +343,7 @@ export default function CohortPage() {
           <div className="grid md:grid-cols-3 gap-12">
             {WHY.map(({ Icon, title, body }, i) => (
               <FadeIn key={title} delay={i * 0.1}>
-                <Icon size={20} className="text-[#191970] mb-5" strokeWidth={1.5} />
+                <Icon size={20} className="text-[#0a1f5c] mb-5" strokeWidth={1.5} />
                 <h3 className="font-semibold mb-2">{title}</h3>
                 <p className="text-sm text-black/50 leading-relaxed">{body}</p>
               </FadeIn>
@@ -369,10 +369,10 @@ export default function CohortPage() {
           <div className="grid md:grid-cols-2 gap-x-16">
             {CURRICULUM.map(({ module, title, lessons, Icon }, i) => (
               <FadeIn key={module} delay={i * 0.05}>
-                <div className="flex items-start gap-4 py-5 border-b border-black/8 group hover:border-[#191970]/20 transition-colors duration-200">
-                  <Icon size={17} className="text-[#191970] flex-shrink-0 mt-0.5 group-hover:scale-110 transition-transform duration-200" strokeWidth={1.5} />
+                <div className="flex items-start gap-4 py-5 border-b border-black/8 group hover:border-[#0a1f5c]/20 transition-colors duration-200">
+                  <Icon size={17} className="text-[#0a1f5c] flex-shrink-0 mt-0.5 group-hover:scale-110 transition-transform duration-200" strokeWidth={1.5} />
                   <div className="flex-1 min-w-0">
-                    <p className="font-medium text-sm leading-snug group-hover:text-[#191970] transition-colors duration-200">{title}</p>
+                    <p className="font-medium text-sm leading-snug group-hover:text-[#0a1f5c] transition-colors duration-200">{title}</p>
                     <p className="text-xs text-black/30 mt-1">{lessons} lessons</p>
                   </div>
                   <span className="text-[10px] font-bold text-black/15 tracking-widest mt-0.5 flex-shrink-0">{module}</span>
@@ -408,8 +408,8 @@ export default function CohortPage() {
                 onClick={() => setActiveWorkflow(i)}
                 className={`inline-flex items-center gap-2 px-4 py-2 text-sm font-medium border transition-all duration-200 ${
                   activeWorkflow === i
-                    ? "bg-[#191970] text-white border-[#191970]"
-                    : "border-black/15 text-black/55 hover:border-[#191970]/40 hover:text-[#191970]"
+                    ? "bg-[#0a1f5c] text-white border-[#0a1f5c]"
+                    : "border-black/15 text-black/55 hover:border-[#0a1f5c]/40 hover:text-[#0a1f5c]"
                 }`}
               >
                 <Icon size={13} strokeWidth={1.5} />
@@ -428,8 +428,8 @@ export default function CohortPage() {
               className="grid sm:grid-cols-2 gap-x-12"
             >
               {WORKFLOWS[activeWorkflow].items.map((item, i) => (
-                <li key={i} className="flex items-start gap-3 py-3.5 border-b border-black/6 text-sm text-black/60 hover:text-black/80 hover:border-[#191970]/20 transition-colors duration-150 group">
-                  <CheckCircle size={14} className="text-[#191970] flex-shrink-0 mt-0.5 group-hover:scale-110 transition-transform duration-150" strokeWidth={1.5} />
+                <li key={i} className="flex items-start gap-3 py-3.5 border-b border-black/6 text-sm text-black/60 hover:text-black/80 hover:border-[#0a1f5c]/20 transition-colors duration-150 group">
+                  <CheckCircle size={14} className="text-[#0a1f5c] flex-shrink-0 mt-0.5 group-hover:scale-110 transition-transform duration-150" strokeWidth={1.5} />
                   {item}
                 </li>
               ))}
@@ -452,7 +452,7 @@ export default function CohortPage() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
-        className="px-6 py-28 bg-[#191970] text-white"
+        className="px-6 py-28 bg-[#0a1f5c] text-white"
       >
         <div className="max-w-5xl mx-auto">
           <h2 className="text-3xl font-semibold mb-4">Built for people who move.</h2>
@@ -488,15 +488,15 @@ export default function CohortPage() {
           <div className="grid md:grid-cols-2 gap-8">
             {TESTIMONIALS.map((t, i) => (
               <FadeIn key={t.name} delay={i * 0.08}>
-                <div className="border border-black/10 p-8 hover:border-[#191970]/25 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                <div className="border border-black/10 p-8 hover:border-[#0a1f5c]/25 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
                   <div className="flex gap-0.5 mb-6">
                     {[...Array(5)].map((_, j) => (
-                      <Star key={j} size={13} className="text-[#191970] fill-[#191970]" />
+                      <Star key={j} size={13} className="text-[#0a1f5c] fill-[#0a1f5c]" />
                     ))}
                   </div>
                   <p className="text-sm text-black/60 leading-relaxed mb-8">"{t.text}"</p>
                   <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 bg-[#191970] text-white text-xs font-semibold flex items-center justify-center flex-shrink-0">
+                    <div className="w-9 h-9 bg-[#0a1f5c] text-white text-xs font-semibold flex items-center justify-center flex-shrink-0">
                       {t.initials}
                     </div>
                     <div>
@@ -529,7 +529,7 @@ export default function CohortPage() {
               <thead>
                 <tr className="border-b border-black/10">
                   <th className="text-left pb-5 font-medium text-black/35 w-1/3"></th>
-                  <th className="pb-5 font-semibold text-[#191970] text-center">This cohort</th>
+                  <th className="pb-5 font-semibold text-[#0a1f5c] text-center">This cohort</th>
                   <th className="pb-5 font-medium text-black/35 text-center">Hire a dev</th>
                   <th className="pb-5 font-medium text-black/35 text-center">Figure it out</th>
                 </tr>
@@ -546,7 +546,7 @@ export default function CohortPage() {
                 ].map(([label, a, b, c]) => (
                   <tr key={label} className="border-b border-black/6 group hover:bg-white transition-colors duration-150">
                     <td className="py-4 font-medium text-black/55">{label}</td>
-                    <td className="py-4 text-center font-semibold text-[#191970]">{a}</td>
+                    <td className="py-4 text-center font-semibold text-[#0a1f5c]">{a}</td>
                     <td className="py-4 text-center text-black/30">{b}</td>
                     <td className="py-4 text-center text-black/30">{c}</td>
                   </tr>
@@ -580,7 +580,7 @@ export default function CohortPage() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
-        className="px-6 py-28 bg-[#191970] text-white"
+        className="px-6 py-28 bg-[#0a1f5c] text-white"
       >
         <div className="max-w-5xl mx-auto">
           <p className="text-xs font-semibold uppercase tracking-widest text-white/30 mb-6">

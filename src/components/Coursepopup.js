@@ -37,7 +37,7 @@ export default function CoursePopup({ open, onClose }) {
           >
             <div className="relative bg-white w-full max-w-lg rounded-xl overflow-hidden shadow-2xl">
 
-              <div className="bg-[#191970] px-8 py-6">
+              <div className="bg-[#0a1f5c] px-8 py-6">
                 <p className="text-xs font-semibold uppercase tracking-widest text-white/40 mb-2">
                   Limited offer — 50% off
                 </p>
@@ -51,7 +51,7 @@ export default function CoursePopup({ open, onClose }) {
 
               <div className="px-8 py-7">
                 <div className="flex items-baseline gap-3 mb-6">
-                  <span className="text-3xl font-semibold text-[#191970]">₦10,000</span>
+                  <span className="text-3xl font-semibold text-[#0a1f5c]">₦10,000</span>
                   <span className="text-lg text-black/30 line-through">₦20,000</span>
                   <span className="text-xs font-bold text-green-600 bg-green-50 border border-green-100 px-2 py-0.5 rounded-full">50% OFF</span>
                 </div>
@@ -59,7 +59,7 @@ export default function CoursePopup({ open, onClose }) {
                 <ul className="space-y-3 mb-8">
                   {INCLUDES.map((item, i) => (
                     <li key={i} className="flex items-start gap-3 text-sm text-black/65">
-                      <svg className="w-4 h-4 text-[#191970] flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                      <svg className="w-4 h-4 text-[#0a1f5c] flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                       </svg>
                       {item}
@@ -71,7 +71,7 @@ export default function CoursePopup({ open, onClose }) {
                   href={COURSE_LINK}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block w-full text-center border border-[#191970] text-[#191970] px-8 py-4 font-semibold hover:bg-[#191970] hover:text-white transition rounded-lg"
+                  className="block w-full text-center border border-[#0a1f5c] text-[#0a1f5c] px-8 py-4 font-semibold hover:bg-[#0a1f5c] hover:text-white transition rounded-lg"
                 >
                   Get Instant Access — ₦10,000
                 </a>
