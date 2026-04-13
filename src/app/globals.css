@@ -5,7 +5,8 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+:root,
+[data-theme="dark"] {
   --bg: #050810;
   --bg2: #080d1a;
   --surface: #0d1526;
@@ -15,6 +16,31 @@
   --neon3: #7b5cff;
   --text: #e8eaf0;
   --muted: rgba(232,234,240,0.45);
+}
+
+[data-theme="light"] {
+  --bg: #f4f6fb;
+  --bg2: #eaecf4;
+  --surface: #ffffff;
+  --border: rgba(77,121,255,0.12);
+  --neon: #2756e8;
+  --neon2: #1340c0;
+  --neon3: #6d3de8;
+  --text: #0c1228;
+  --muted: rgba(12,18,40,0.52);
+}
+
+[data-theme="light"] html,
+[data-theme="light"] body {
+  background: var(--bg);
+  color: var(--text);
+}
+
+[data-theme="light"] .cyber-grid {
+  background-image:
+    linear-gradient(rgba(77,121,255,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(77,121,255,0.05) 1px, transparent 1px);
+  background-size: 60px 60px;
 }
 
 html, body {
