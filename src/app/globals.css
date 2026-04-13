@@ -5,41 +5,37 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── DEFAULT: Light ─────────────────────────────────────────── */
 :root,
-[data-theme="dark"] {
-  --bg: #050810;
-  --bg2: #080d1a;
-  --surface: #0d1526;
-  --border: rgba(13,31,92,0.12);
-  --neon: #4d79ff;
-  --neon2: #0a1f5c;
-  --neon3: #7b5cff;
-  --text: #e8eaf0;
-  --muted: rgba(232,234,240,0.45);
-}
-
 [data-theme="light"] {
-  --bg: #f4f6fb;
-  --bg2: #eaecf4;
+  --bg:      #f7f8fc;
+  --bg2:     #eef0f8;
   --surface: #ffffff;
-  --border: rgba(77,121,255,0.12);
-  --neon: #2756e8;
-  --neon2: #1340c0;
-  --neon3: #6d3de8;
-  --text: #0c1228;
-  --muted: rgba(12,18,40,0.52);
+  --border:  rgba(77,121,255,0.11);
+  --neon:    #2756e8;
+  --neon2:   #1340c0;
+  --neon3:   #6d3de8;
+  --text:    #0c1228;
+  --muted:   rgba(12,18,40,0.50);
 }
 
-[data-theme="light"] html,
-[data-theme="light"] body {
-  background: var(--bg);
-  color: var(--text);
+/* ── DARK: toggle ───────────────────────────────────────────── */
+[data-theme="dark"] {
+  --bg:      #050810;
+  --bg2:     #080d1a;
+  --surface: #0d1526;
+  --border:  rgba(13,31,92,0.12);
+  --neon:    #4d79ff;
+  --neon2:   #0a1f5c;
+  --neon3:   #7b5cff;
+  --text:    #e8eaf0;
+  --muted:   rgba(232,234,240,0.45);
 }
 
 [data-theme="light"] .cyber-grid {
   background-image:
-    linear-gradient(rgba(77,121,255,0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(77,121,255,0.05) 1px, transparent 1px);
+    linear-gradient(rgba(77,121,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(77,121,255,0.04) 1px, transparent 1px);
   background-size: 60px 60px;
 }
 

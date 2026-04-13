@@ -11,12 +11,13 @@ const LINKS = [
 
 export default function Navbar() {
   const [open, setOpen]     = useState(false);
-  const [dark, setDark]     = useState(true);
+  const [dark, setDark]     = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     const saved = localStorage.getItem("ss_theme");
     if (saved) setDark(saved === "dark");
+    else setDark(false); // default light
     const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
@@ -27,13 +28,17 @@ export default function Navbar() {
     localStorage.setItem("ss_theme", dark ? "dark" : "light");
   }, [dark]);
 
+  const navBg = dark
+    ? (scrolled ? "rgba(5,8,16,0.97)" : "rgba(5,8,16,0.85)")
+    : (scrolled ? "rgba(247,248,252,0.97)" : "rgba(247,248,252,0.88)");
+
   return (
     <nav
       className="fixed top-0 left-0 w-full z-[90]"
       style={{
-        background: scrolled ? "rgba(5,8,16,0.96)" : "rgba(5,8,16,0.80)",
+        background: navBg,
         backdropFilter: "blur(16px)",
-        borderBottom: scrolled ? "1px solid rgba(0,255,180,0.08)" : "1px solid transparent",
+        borderBottom: scrolled ? "1px solid var(--border)" : "1px solid transparent",
         transition: "all 0.3s ease",
       }}
     >

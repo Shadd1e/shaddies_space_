@@ -1,87 +1,32 @@
 "use client";
 import { motion } from "framer-motion";
 
-const testimonials = [
+const TESTIMONIALS = [
   {
-    text: "I landed my first security analyst role three months after completing this course. The hands-on labs made all the difference — employers could see I had done real work.",
-    name: "Adebayo Okonkwo",
-    role: "Security Analyst, Lagos",
-    initial: "A",
+    initials: "BL",
+    name:     "Bennies Logistics",
+    role:     "Logistics & Last-Mile Delivery, Lagos",
+    text:     "They automated our entire order notification and driver assignment flow. What used to take our ops team 2 hours every morning now runs itself before anyone gets to the office. The ROI was clear within the first week.",
   },
   {
-    text: "The DeFi Security module alone was worth double the fee. I caught a reentrancy bug in a client's smart contract the very next week and saved them a serious loss.",
-    name: "Chidinma Eze",
-    role: "Smart Contract Auditor, Abuja",
-    initial: "C",
+    initials: "AC",
+    name:     "AltekFlo Clients",
+    role:     "Enterprise Automation, Multiple Sectors",
+    text:     "Shaddies Space built our internal reporting pipeline — pulling data from five different tools and delivering a clean weekly summary to the team automatically. We stopped wasting analyst hours on copy-paste work.",
   },
   {
-    text: "I came from a completely non-technical background. By module four I was running my own penetration tests. The pacing and instruction quality are genuinely exceptional.",
-    name: "Emeka Okafor",
-    role: "Freelance Pentester, Port Harcourt",
-    initial: "E",
+    initials: "RH",
+    name:     "Real Estate Client",
+    role:     "Property Agency, Port Harcourt",
+    text:     "Our WhatsApp inquiry system was chaos before. Now every lead is captured, categorized, and followed up automatically. We closed three deals in the first month that would have fallen through old-system cracks.",
   },
   {
-    text: "Our entire IT team went through the cybersecurity track. We overhauled our infrastructure policy within a month. The ROI was clear inside six weeks.",
-    name: "Fatima Aliyu",
-    role: "CTO, Kano-based Fintech",
-    initial: "F",
-  },
-  {
-    text: "The Web3 curriculum is the most honest I have seen. They don't hype it — they teach you how it actually works, including the risks. That is rare.",
-    name: "Tunde Bakare",
-    role: "Blockchain Developer, Ibadan",
-    initial: "T",
-  },
-  {
-    text: "I enrolled sceptical. I left with a portfolio, a network, and an offer. The community alone is worth the investment — people in this cohort are actually serious.",
-    name: "Ngozi Obi",
-    role: "Security Engineer, London",
-    initial: "N",
-  },
-  {
-    text: "The instructor coverage on network forensics is the best I have encountered anywhere online. And I have taken courses on every major platform. This is a different level.",
-    name: "Kelechi Mba",
-    role: "SOC Analyst, Dubai",
-    initial: "K",
+    initials: "FS",
+    name:     "Finance Services Client",
+    role:     "Microfinance & Lending, Abuja",
+    text:     "Invoice automation, payment reminders, and reconciliation — all set up in two weeks. Our finance team went from firefighting to actually analysing the business. That shift alone changed how we operate.",
   },
 ];
-
-function Card({ t }) {
-  return (
-    <div className="inline-flex flex-col gap-4 min-w-[340px] max-w-[340px] p-6 rounded-lg flex-shrink-0 whitespace-normal align-top"
-      style={{background:"var(--surface)",border:"1px solid var(--border)"}}>
-      <div className="text-sm leading-relaxed" style={{color:"var(--muted)"}}>
-        <span style={{color:"var(--neon)",fontWeight:700,fontSize:"1.4rem",lineHeight:0}}>"</span>
-        {t.text}
-        <span style={{color:"var(--neon)",fontWeight:700,fontSize:"1.4rem",lineHeight:0}}>"</span>
-      </div>
-      <div className="flex items-center gap-3 mt-auto">
-        <div className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 mono text-xs font-bold"
-          style={{background:"rgba(0,255,180,0.12)",color:"var(--neon)",border:"1px solid rgba(0,255,180,0.3)"}}>
-          {t.initial}
-        </div>
-        <div>
-          <p className="font-semibold text-sm" style={{color:"var(--text)"}}>{t.name}</p>
-          <p className="text-xs" style={{color:"var(--muted)"}}>{t.role}</p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function ScrollRow({ items, direction = "left" }) {
-  const doubled = [...items, ...items];
-  return (
-    <div className="overflow-hidden">
-      <div className={`flex gap-6 whitespace-nowrap ${direction === "left" ? "animate-scroll" : "animate-scroll-reverse"}`}>
-        {doubled.map((t, i) => <Card key={i} t={t} />)}
-      </div>
-    </div>
-  );
-}
-
-const row1 = testimonials.slice(0, 4);
-const row2 = testimonials.slice(3);
 
 export default function Testimonials() {
   return (
@@ -89,25 +34,48 @@ export default function Testimonials() {
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.9 }}
-      className="py-28 overflow-hidden space-y-6"
+      transition={{ duration: 0.8 }}
+      className="px-6 py-28"
+      style={{ background: "var(--bg2)" }}
     >
-      <div className="max-w-6xl mx-auto px-6 mb-12">
-        <p className="mono text-xs uppercase tracking-widest mb-3" style={{color:"var(--neon)"}}>Testimonials</p>
-        <h2 className="text-3xl md:text-4xl font-bold">What our students say.</h2>
-      </div>
-      <ScrollRow items={row1} direction="left" />
-      <ScrollRow items={row2} direction="right" />
+      <div className="max-w-6xl mx-auto">
+        <motion.p className="mono text-xs uppercase tracking-widest mb-4" style={{ color: "var(--neon)" }}>
+          Results
+        </motion.p>
+        <h2 className="text-3xl md:text-5xl font-bold mb-6 leading-tight">
+          Businesses we've helped.
+        </h2>
+        <p className="text-lg max-w-xl mb-16 leading-relaxed" style={{ color: "var(--muted)" }}>
+          Outcomes from businesses that brought us in to build or automate their operations.
+        </p>
 
-      <div className="mt-16 px-6">
-        <p className="text-center text-xs uppercase tracking-widest mb-10" style={{color:"var(--muted)"}}>Brands we've worked with</p>
-        <div className="flex flex-wrap justify-center gap-8 opacity-50">
-          {["Nexacore","Vaultify","Meridian","Stackbloc","Orbitel","Fintrax","Cyphex","Lumisec","Tradenode"].map((name, i) => (
-            <div key={i}
-              className="px-5 py-2 rounded mono text-xs font-bold tracking-widest"
-              style={{border:"1px solid rgba(0,255,180,0.2)",color:"rgba(0,255,180,0.6)"}}>
-              {name}
-            </div>
+        <div className="grid md:grid-cols-2 gap-6">
+          {TESTIMONIALS.map((t, i) => (
+            <motion.div
+              key={t.name}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.09, duration: 0.6 }}
+              className="p-8 rounded-xl glow-hover"
+              style={{ background: "var(--surface)", border: "1px solid var(--border)" }}
+            >
+              <p className="text-sm leading-relaxed mb-8" style={{ color: "var(--muted)" }}>
+                &ldquo;{t.text}&rdquo;
+              </p>
+              <div className="flex items-center gap-3" style={{ borderTop: "1px solid var(--border)", paddingTop: 20 }}>
+                <div
+                  className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 mono text-xs font-bold"
+                  style={{ background: "rgba(77,121,255,0.12)", color: "var(--neon)", border: "1px solid var(--border)" }}
+                >
+                  {t.initials}
+                </div>
+                <div>
+                  <p className="font-bold text-sm">{t.name}</p>
+                  <p className="text-xs" style={{ color: "var(--muted)" }}>{t.role}</p>
+                </div>
+              </div>
+            </motion.div>
           ))}
         </div>
       </div>

@@ -15,13 +15,19 @@ export default function Footer() {
       <div className="max-w-6xl mx-auto">
         <div className="asimovian text-sm mb-4 flicker" style={{color:"var(--neon)"}}>SHADDIES.SPACE</div>
         <p className="text-base mb-10" style={{color:"var(--muted)"}}>
-          Securing the builders of tomorrow.
+          Automation education and software for the builders who move fast.
         </p>
         <div className="flex flex-wrap gap-8 mb-12 text-sm" style={{color:"var(--muted)"}}>
-          <Link href="/cybersecurity" className="hover:text-white transition">Cybersecurity</Link>
-          <Link href="/web3" className="hover:text-white transition">Web3</Link>
-          <Link href="/about" className="hover:text-white transition">About</Link>
-          <Link href="/cybersecurity#pricing" className="hover:text-white transition">Pricing</Link>
+          <Link href="/automatex" className="transition" style={{color:"var(--muted)"}}
+            onMouseEnter={e=>e.target.style.color="var(--neon)"} onMouseLeave={e=>e.target.style.color="var(--muted)"}>AI & Automation</Link>
+          <Link href="/#projects" className="transition" style={{color:"var(--muted)"}}
+            onMouseEnter={e=>e.target.style.color="var(--neon)"} onMouseLeave={e=>e.target.style.color="var(--muted)"}>Projects</Link>
+          <Link href="/#solutions" className="transition" style={{color:"var(--muted)"}}
+            onMouseEnter={e=>e.target.style.color="var(--neon)"} onMouseLeave={e=>e.target.style.color="var(--muted)"}>Solutions</Link>
+          <Link href="/about" className="transition" style={{color:"var(--muted)"}}
+            onMouseEnter={e=>e.target.style.color="var(--neon)"} onMouseLeave={e=>e.target.style.color="var(--muted)"}>About</Link>
+          <Link href="/#contact" className="transition" style={{color:"var(--muted)"}}
+            onMouseEnter={e=>e.target.style.color="var(--neon)"} onMouseLeave={e=>e.target.style.color="var(--muted)"}>Contact</Link>
         </div>
         <div className="flex gap-6 mb-12">
           <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
