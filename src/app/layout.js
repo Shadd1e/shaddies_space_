@@ -11,17 +11,12 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className="relative text-black overflow-x-hidden">
-
-        {/* Animated background */}
+    <html lang="en" data-theme="light">
+      <body style={{ margin: 0, padding: 0, background: "var(--bg)", color: "var(--text)", overflowX: "hidden" }}>
         <FlowBackground />
-
-        {/* Site content */}
-        <div className="relative z-10">
+        <div style={{ position: "relative", zIndex: 10 }}>
           {children}
         </div>
-
       </body>
     </html>
   );
