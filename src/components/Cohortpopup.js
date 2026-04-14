@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import AutomateXSignup from "@/components/AutomateXSignup";
+import AutomateXSignup from "@/components/Automatexsignup";
 
 export default function CohortPopup({ open, onClose }) {
   return (
