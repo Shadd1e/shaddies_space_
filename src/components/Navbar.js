@@ -2,15 +2,8 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 
-const LINKS = [
-  { label: "AI & Automation", href: "/automatex" },
-  { label: "Projects",        href: "/#projects"  },
-  { label: "Solutions",       href: "/solutions"  },
-  { label: "About",           href: "/about"      },
-];
 
 export default function Navbar() {
-  const [open, setOpen]     = useState(false);
   const [dark, setDark]     = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -47,20 +40,7 @@ export default function Navbar() {
           SHADDIES.SPACE
         </Link>
 
-        <div className="hidden md:flex items-center gap-6">
-          {LINKS.map(l => (
-            <Link key={l.label} href={l.href}
-              className="text-sm font-medium transition-colors duration-200"
-              style={{ color: "var(--muted)" }}
-              onMouseEnter={e => e.target.style.color = "var(--neon)"}
-              onMouseLeave={e => e.target.style.color = "var(--muted)"}
-            >{l.label}</Link>
-          ))}
-          <Link href="/automatex"
-            className="text-sm px-5 py-2 font-semibold transition-all duration-200 border"
-            style={{ color: "var(--neon)", borderColor: "rgba(0,255,180,0.4)" }}>
-            Enroll Now →
-          </Link>
+        <div className="flex items-center gap-6">
           <button
             onClick={() => setDark(d => !d)}
             title={dark ? "Switch to light mode" : "Switch to dark mode"}
@@ -76,31 +56,7 @@ export default function Navbar() {
           >{dark ? "☀" : "☾"}</button>
         </div>
 
-        <div className="md:hidden flex items-center gap-3">
-          <button onClick={() => setDark(d => !d)}
-            style={{ background: "none", border: "none", cursor: "pointer", fontSize: 18, color: "var(--text)", padding: 4 }}>
-            {dark ? "☀" : "☾"}
-          </button>
-          <button className="flex flex-col gap-1.5 p-1" onClick={() => setOpen(o => !o)}>
-            <span className={`block w-5 h-0.5 transition-all duration-200 ${open ? "rotate-45 translate-y-2" : ""}`} style={{ background: "var(--neon)" }} />
-            <span className={`block w-5 h-0.5 transition-all duration-200 ${open ? "opacity-0" : ""}`} style={{ background: "var(--neon)" }} />
-            <span className={`block w-5 h-0.5 transition-all duration-200 ${open ? "-rotate-45 -translate-y-2" : ""}`} style={{ background: "var(--neon)" }} />
-          </button>
-        </div>
       </div>
-
-      {open && (
-        <div className="md:hidden px-6 py-6 space-y-5" style={{ background: "var(--bg2)", borderTop: "1px solid var(--border)" }}>
-          {LINKS.map(l => (
-            <Link key={l.label} href={l.href} className="block text-sm font-medium"
-              style={{ color: "var(--muted)" }} onClick={() => setOpen(false)}>{l.label}</Link>
-          ))}
-          <Link href="/automatex" className="inline-block text-sm px-5 py-2 border font-semibold"
-            style={{ color: "var(--neon)", borderColor: "rgba(0,255,180,0.4)" }} onClick={() => setOpen(false)}>
-            Enroll Now →
-          </Link>
-        </div>
-      )}
     </nav>
   );
 }
