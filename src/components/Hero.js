@@ -6,8 +6,8 @@ import Link from "next/link";
 export default function Hero() {
   const [a, setA] = useState("");
   const [b, setB] = useState("");
-  const t1 = "Automation is the skill.";
-  const t2 = "Intelligence is the edge.";
+  const t1 = "Make technology work for you.";
+  const t2 = "Learn it. Build it. Put it to work.";
 
   useEffect(() => {
     let i = 0;
@@ -77,7 +77,7 @@ export default function Hero() {
             className="inline-block px-10 py-4 text-base font-bold transition-all duration-300"
             style={{ background: "var(--neon)", color: "#fff", borderRadius: 6 }}
           >
-            LEARN TO BUILD YOURS
+            I WANT TO LEARN
           </Link>
           <Link
             href="/solutions"
