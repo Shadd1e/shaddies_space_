@@ -2,6 +2,7 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import LineArt from "@/components/LineArt";
 
 export default function Hero() {
   const [a, setA] = useState("");
@@ -33,21 +34,23 @@ export default function Hero() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }}
-      className="min-h-[90vh] px-6 pt-36 pb-24 flex flex-col justify-center relative overflow-hidden"
+      className="min-h-screen px-6 pt-28 pb-16 flex flex-col justify-center relative overflow-hidden"
     >
-      {/* Subtle ambient glow behind text */}
-      <div
-        className="absolute top-1/3 left-1/4 w-96 h-96 rounded-full pointer-events-none"
-        style={{
-          background: "radial-gradient(circle, var(--neon), transparent 70%)",
-          filter: "blur(90px)",
-          opacity: 0.06,
-        }}
-      />
+      {/* Ink-line artwork behind the text */}
+      <div className="absolute inset-0 pointer-events-none opacity-30 md:opacity-100 md:left-[18%]">
+        <LineArt />
+      </div>
 
-      <div className="max-w-6xl mx-auto w-full relative z-10">
+      {/* Tiny corner label, desktop only */}
+      <p
+        className="hidden md:block mono absolute left-6 top-1/2 text-[10px] uppercase tracking-[0.3em] z-10"
+        style={{ color: "var(--muted)", writingMode: "vertical-rl", transform: "translateY(-50%) rotate(180deg)" }}
+      >
+        AI · Automation · Software
+      </p>
 
-        <div className="text-4xl md:text-6xl lg:text-7xl font-bold leading-[1.1] space-y-2 mb-8">
+      <div className="max-w-6xl mx-auto w-full relative z-10 md:pl-8">
+        <div className="text-5xl md:text-7xl lg:text-8xl font-semibold leading-[1.02] tracking-tight space-y-1 mb-8">
           <p style={{ color: "var(--text)" }}>
             {a}
             <span className="animate-pulse" style={{ color: "var(--neon)" }}>|</span>
@@ -58,8 +61,8 @@ export default function Hero() {
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 2.4, duration: 0.8 }}
-          className="text-lg md:text-xl max-w-2xl leading-relaxed mb-12"
+          transition={{ delay: 3.0, duration: 0.8 }}
+          className="text-lg md:text-xl max-w-xl leading-relaxed mb-10"
           style={{ color: "var(--muted)" }}
         >
           Learn to automate with AI, or let us build it for you. Either way,
@@ -69,25 +72,16 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 2.7, duration: 0.6 }}
-          className="flex flex-wrap gap-4"
+          transition={{ delay: 3.3, duration: 0.6 }}
+          className="flex flex-col sm:flex-row gap-4"
         >
-          <Link
-            href="/automatex"
-            className="inline-block px-10 py-4 text-base font-bold transition-all duration-300"
-            style={{ background: "var(--neon)", color: "#fff", borderRadius: 6 }}
-          >
+          <Link href="/automatex" className="btn btn-primary">
             I WANT TO LEARN
           </Link>
-          <Link
-            href="/solutions"
-            className="inline-block border px-10 py-4 text-base font-semibold transition-all duration-300"
-            style={{ color: "var(--neon)", borderColor: "var(--border)", borderRadius: 6 }}
-          >
+          <Link href="/solutions" className="btn btn-secondary">
             LET'S BUILD ONE FOR YOU
           </Link>
         </motion.div>
-
       </div>
     </motion.section>
   );

@@ -40,7 +40,13 @@ export default function Navbar() {
           SHADDIES.SPACE
         </Link>
 
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-4 sm:gap-6">
+          <Link href="/about"
+            className="text-sm font-medium transition-colors duration-200"
+            style={{ color: "var(--muted)" }}
+            onMouseEnter={e => e.currentTarget.style.color = "var(--neon)"}
+            onMouseLeave={e => e.currentTarget.style.color = "var(--muted)"}
+          >Who we are</Link>
           <button
             onClick={() => setDark(d => !d)}
             title={dark ? "Switch to light mode" : "Switch to dark mode"}
