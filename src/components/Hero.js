@@ -50,7 +50,7 @@ export default function Hero() {
       </p>
 
       <div className="max-w-6xl mx-auto w-full relative z-10 md:pl-8">
-        <div className="text-5xl md:text-7xl lg:text-8xl font-semibold leading-[1.02] tracking-tight space-y-1 mb-8">
+        <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold leading-[1.02] tracking-tight space-y-1 mb-8">
           <p style={{ color: "var(--text)" }}>
             {a}
             <span className="animate-pulse" style={{ color: "var(--neon)" }}>|</span>
@@ -62,7 +62,7 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 3.0, duration: 0.8 }}
-          className="text-lg md:text-xl max-w-xl leading-relaxed mb-10"
+          className="text-base md:text-lg max-w-xl leading-relaxed mb-10"
           style={{ color: "var(--muted)" }}
         >
           Learn to automate with AI, or let us build it for you. Either way,
