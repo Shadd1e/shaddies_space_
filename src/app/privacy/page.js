@@ -1,0 +1,15 @@
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+
+export const metadata = { title: "Privacy | Shaddies.Space" };
+
+export default function PrivacyPage() {
+  return <><Navbar /><main className="page-shell px-5 sm:px-6 py-16"><article className="max-w-3xl mx-auto"><p className="eyebrow mb-4">Privacy</p><h1 className="text-4xl font-semibold mb-5" style={{ color: "var(--text)" }}>Your information should have a purpose.</h1><p className="leading-relaxed mb-10" style={{ color: "var(--muted)" }}>This page describes the intended privacy approach for Shaddies.Space. It should be reviewed and approved as a formal policy before public launch.</p><div className="space-y-8 text-sm leading-7" style={{ color: "var(--text)" }}>
+    <section><h2 className="text-xl font-semibold mb-2">Information we collect</h2><p>When you contact us, we collect the details you choose to provide so we can understand and respond to your enquiry. When account features are enabled, account information may include your email address and the limited profile fields needed by the learning experience: official name, country and username.</p></section>
+    <section><h2 className="text-xl font-semibold mb-2">How we use it</h2><p>We use information to respond to project enquiries, provide account access, support learning progress and maintain the services you request. We do not need your passwords in messages or forms. Authentication is handled by the configured sign-in provider.</p></section>
+    <section><h2 className="text-xl font-semibold mb-2">Service providers</h2><p>Depending on the feature you use, information may be processed by Supabase for database and authentication services, DeepSeek for the project-planning assistant, and other service providers needed to deliver a requested feature. API credentials are kept on the server and should never be exposed in browser code.</p></section>
+    <section><h2 className="text-xl font-semibold mb-2">Project ideas and AI</h2><p>Information entered into the project idea explorer is sent to the configured AI provider to generate a preliminary exploration. Do not enter passwords, payment card details or sensitive personal information. The generated result is an early planning aid, not professional, legal, financial or technical advice.</p></section>
+    <section><h2 className="text-xl font-semibold mb-2">Retention and requests</h2><p>Information should be retained only for as long as needed for the purpose it was collected, subject to applicable legal obligations. To ask about, correct or request deletion of information, contact support@shaddies.space.</p></section>
+    <section><h2 className="text-xl font-semibold mb-2">Contact</h2><p>Privacy questions: <a href="mailto:support@shaddies.space" className="underline" style={{ color: "var(--neon)" }}>support@shaddies.space</a> (backup: shaddiesspace@aol.com). This draft must be completed with the operator's legal/business identity, applicable jurisdiction, retention periods and any additional provider disclosures before publication.</p></section>
+  </div></article></main><Footer /></>;
+}

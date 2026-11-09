@@ -1,46 +1,11 @@
 "use client";
-
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 export default function Bridge() {
-  return (
-    <motion.section
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
-      className="relative z-10 px-6 py-16"
-    >
-      <div className="max-w-6xl mx-auto">
-
-        <div className="asimovian text-xs text-[#0a1f5c] mb-6">
-          SHADDIES.SPACE
-        </div>
-
-        <p className="text-lg md:text-xl max-w-3xl">
-          Where brands and businesses find systems tailored to their needs.
-        </p>
-
-        <div className="mt-6 flex flex-wrap gap-5">
-
-          <a
-            href="https://calendar.app.google/9QaFeGRrmzqX7s2z7"
-            target="_blank"
-            className="border border-[#0a1f5c] text-[#0a1f5c] px-7 py-3 hover:bg-[#0a1f5c] hover:text-white transition"
-          >
-            Book a meeting
-          </a>
-
-          <a
-            href="/solutions"
-            className="border border-[#0a1f5c] text-[#0a1f5c] px-7 py-3 hover:bg-[#0a1f5c] hover:text-white transition"
-          >
-            Explore solutions
-          </a>
-
-        </div>
-
-      </div>
-    </motion.section>
-  );
+  return <motion.section initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: .8, ease: "easeOut" }} className="relative z-10 px-5 sm:px-6 py-16">
+    <div className="max-w-6xl mx-auto"><div className="asimovian text-xs mb-6" style={{ color: "var(--neon)" }}>SHADDIES.SPACE</div><p className="text-lg md:text-xl max-w-3xl" style={{ color: "var(--text)" }}>Where ideas become useful systems — through learning, thoughtful design and hands-on building.</p>
+      <div className="mt-6 flex flex-col sm:flex-row gap-3"><Link href="/build-with-me" className="btn btn-primary !w-auto">Build with me</Link><Link href="/learn" className="btn btn-secondary !w-auto">Explore the learning space</Link></div>
+    </div>
+  </motion.section>;
 }
