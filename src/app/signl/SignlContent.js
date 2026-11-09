@@ -128,21 +128,21 @@ function ProcessingScreen({ niche }) {
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.97 }}
       transition={{ duration: 0.3 }}
-      className="rounded-xl border border-black/10 shadow-lg bg-white p-8 space-y-8"
+      className="rounded-xl border border-[var(--border)] shadow-lg bg-[var(--surface)] text-[var(--text)] p-8 space-y-8"
     >
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-xl font-semibold">Building your digest</h2>
-          <p className="text-sm text-black/40 mt-0.5">
+          <p className="text-sm text-[var(--muted)] mt-0.5">
             {ALL_NICHES.find(n => n.value === niche)?.label} · {elapsed}s elapsed
           </p>
         </div>
-        <div className="w-10 h-10 rounded-full border-2 border-[#182E6F]/20 border-t-[#182E6F] animate-spin" />
+        <div className="w-10 h-10 rounded-full border-2 border-[var(--border)] border-t-[var(--neon)] animate-spin" />
       </div>
 
-      <div className="w-full h-1.5 bg-black/5 rounded-full overflow-hidden">
+      <div className="w-full h-1.5 bg-[var(--bg2)] rounded-full overflow-hidden">
         <motion.div
-          className="h-full bg-[#182E6F] rounded-full"
+          className="h-full bg-[var(--neon)] rounded-full"
           animate={{ width: `${progress}%` }}
           transition={{ duration: 0.6, ease: "easeOut" }}
         />
@@ -162,32 +162,32 @@ function ProcessingScreen({ niche }) {
               className="flex items-center gap-3"
             >
               <div className={`w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-300 ${
-                done   ? "bg-[#182E6F]" :
-                active ? "border-2 border-[#182E6F]" :
-                         "border-2 border-black/10"
+                done   ? "bg-[var(--neon)]" :
+                active ? "border-2 border-[var(--neon)]" :
+                         "border-2 border-[var(--border)]"
               }`}>
                 {done && (
                   <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                   </svg>
                 )}
-                {active && <div className="w-2 h-2 rounded-full bg-[#182E6F] animate-pulse" />}
+                {active && <div className="w-2 h-2 rounded-full bg-[var(--neon)] animate-pulse" />}
               </div>
               <span className={`text-sm transition-all duration-300 ${
-                done   ? "text-black/40 line-through" :
-                active ? "text-black font-medium" :
-                         "text-black/30"
+                done   ? "text-[var(--muted)] line-through" :
+                active ? "text-[var(--text)] font-medium" :
+                         "text-[var(--muted)]"
               }`}>
                 {step.label}
               </span>
-              {active && <span className="ml-auto text-xs text-[#182E6F] font-medium animate-pulse">In progress</span>}
-              {done   && <span className="ml-auto text-xs text-black/25">Done</span>}
+              {active && <span className="ml-auto text-xs text-[var(--neon)] font-medium animate-pulse">In progress</span>}
+              {done   && <span className="ml-auto text-xs text-[var(--muted)]">Done</span>}
             </motion.div>
           );
         })}
       </div>
 
-      <p className="text-xs text-black/30 text-center">
+      <p className="text-xs text-[var(--muted)] text-center">
         This usually takes 15–30 seconds. Please don't close the page.
       </p>
     </motion.div>
@@ -257,7 +257,7 @@ export default function SignlContent() {
               <div className="space-y-4">
                 {NICHE_GROUPS.map(group => (
                   <div key={group.label}>
-                    <p className="text-xs font-semibold uppercase tracking-widest text-black/30 mb-2">
+                    <p className="text-xs font-semibold uppercase tracking-widest text-[var(--muted)] mb-2">
                       {group.label}
                     </p>
                     <div className="flex flex-wrap gap-2">
@@ -268,8 +268,8 @@ export default function SignlContent() {
                           onClick={() => setNiche(n.value)}
                           className={`px-4 py-1.5 rounded-full text-sm font-medium border transition-all ${
                             niche === n.value
-                              ? "bg-[#182E6F] text-white border-[#182E6F]"
-                              : "bg-white text-black/70 border-black/20 hover:border-[#182E6F] hover:text-[#182E6F]"
+                              ? "bg-[var(--neon)] text-white border-[var(--neon)]"
+                              : "bg-[var(--surface)] text-[var(--text)] border-[var(--border)] hover:border-[var(--neon)] hover:text-[var(--neon)]"
                           }`}
                         >
                           {n.label}
@@ -283,12 +283,12 @@ export default function SignlContent() {
               <input
                 name="keywords"
                 placeholder="Optional keywords (e.g. interest rates, OpenAI, Ronaldo…)"
-                className="w-full p-3 rounded-lg border border-black/20 text-black placeholder:text-black/30 focus:outline-none focus:border-[#182E6F] transition"
+                className="w-full p-3 rounded-lg border border-[var(--border)] bg-[var(--bg)] text-[var(--text)] placeholder:text-[var(--muted)] focus:outline-none focus:border-[var(--neon)] transition"
               />
 
               <button
                 type="submit"
-                className="w-full p-3 rounded-lg bg-[#182E6F] text-white font-semibold hover:opacity-90 transition"
+                className="w-full p-3 rounded-lg bg-[var(--neon)] text-white font-semibold hover:opacity-90 transition"
               >
                 Generate Updates
               </button>
@@ -309,18 +309,18 @@ export default function SignlContent() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.4 }}
-            className="bg-white rounded-xl border border-black/10 shadow-lg"
+            className="bg-[var(--surface)] text-[var(--text)] rounded-xl border border-[var(--border)] shadow-lg"
           >
             <div className="max-w-6xl mx-auto p-8">
               <div className="flex items-center justify-between mb-8">
                 <h2 className="text-2xl font-semibold">Latest Updates</h2>
                 <div className="flex items-center gap-3">
-                  <span className="text-xs font-medium uppercase tracking-widest text-black/30 border border-black/10 px-3 py-1 rounded-full">
+                  <span className="text-xs font-medium uppercase tracking-widest text-[var(--muted)] border border-[var(--border)] px-3 py-1 rounded-full">
                     {ALL_NICHES.find(n => n.value === niche)?.label}
                   </span>
                   <button
                     onClick={() => setView("form")}
-                    className="text-xs text-[#182E6F] font-medium hover:underline"
+                    className="text-xs text-[var(--neon)] font-medium hover:underline"
                   >
                     ← New search
                   </button>
@@ -334,12 +334,12 @@ export default function SignlContent() {
                     initial={{ opacity: 0, y: 16 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: i * 0.04 }}
-                    className="border-b pb-6"
+                    className="border-b border-[var(--border)] pb-6"
                   >
                     <h3 className="text-lg font-semibold leading-snug">{article.title}</h3>
-                    <p className="text-gray-600 mt-2 text-sm leading-relaxed">{article.summary}</p>
+                    <p className="text-[var(--muted)] mt-2 text-sm leading-relaxed">{article.summary}</p>
                     {article.pubDate && (
-                      <p className="text-xs text-black/30 mt-2">
+                      <p className="text-xs text-[var(--muted)] mt-2">
                         {new Date(article.pubDate).toLocaleDateString("en-US", {
                           month: "short", day: "numeric", year: "numeric"
                         })}
@@ -349,7 +349,7 @@ export default function SignlContent() {
                       href={article.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-block mt-3 text-[#182E6F] font-medium text-sm hover:underline"
+                      className="inline-block mt-3 text-[var(--neon)] font-medium text-sm hover:underline"
                     >
                       Read more →
                     </a>
@@ -357,7 +357,7 @@ export default function SignlContent() {
                 ))}
               </div>
 
-              <footer className="pt-10 text-sm text-gray-400 text-center">
+              <footer className="pt-10 text-sm text-[var(--muted)] text-center">
                 Thank you for using SIGNL.<br />© {new Date().getFullYear()}
               </footer>
             </div>
@@ -371,14 +371,14 @@ export default function SignlContent() {
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            className="rounded-xl border border-black/10 bg-white p-8 text-center space-y-4"
+            className="rounded-xl border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] p-8 text-center space-y-4"
           >
             <p className="text-4xl">🛰️</p>
             <h3 className="font-semibold text-lg">We hit a snag</h3>
-            <p className="text-black/50 text-sm max-w-sm mx-auto">{errorMsg}</p>
+            <p className="text-[var(--muted)] text-sm max-w-sm mx-auto">{errorMsg}</p>
             <button
               onClick={() => setView("form")}
-              className="mt-2 px-6 py-2.5 rounded-lg bg-[#182E6F] text-white text-sm font-semibold hover:opacity-90 transition"
+              className="mt-2 px-6 py-2.5 rounded-lg bg-[var(--neon)] text-white text-sm font-semibold hover:opacity-90 transition"
             >
               Try again
             </button>
