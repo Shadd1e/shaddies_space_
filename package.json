@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "automatex:extract": "python scripts/extract-course-bank.py scripts/Automate-X-Course-Bank-v2.docx -o scripts/automatex-course-bank.json",
+    "automatex:load": "node scripts/load-course-bank.mjs scripts/automatex-course-bank.json"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",

@@ -34,3 +34,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Private Automate-X source bank and generated answer-key payload
+scripts/Automate-X-Course-Bank-v2.docx
+scripts/automatex-course-bank.json

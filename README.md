@@ -1,5 +1,9 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## Automate-X course
+
+The integrated Automate-X course routes, Supabase migrations, DOCX bank extractor and trusted loader are included. Follow [`AUTOMATEX_SETUP.md`](./AUTOMATEX_SETUP.md) before applying the course migrations or importing the bank.
+
 ## Getting Started
 
 First, run the development server:

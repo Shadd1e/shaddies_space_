@@ -95,10 +95,8 @@ html, body {
 /* Homepage buttons: soft pill shape, hover lift, touch press */
 .btn {
   display: inline-flex; align-items: center; justify-content: center;
-  padding: 0.8rem 1.75rem; border-radius: 999px;
-  font-family: 'Syne', sans-serif;
-  font-size: 0.9rem; font-weight: 600; letter-spacing: 0; line-height: 1.2;
-  text-transform: none;
+  padding: 1rem 2.5rem; border-radius: 999px;
+  font-size: 1rem; font-weight: 700; letter-spacing: 0.04em;
   text-align: center; border: 1px solid transparent;
   transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease;
   -webkit-tap-highlight-color: transparent; touch-action: manipulation;
@@ -144,4 +142,10 @@ html, body {
 .ambient-orb { position: absolute; border-radius: 999px; filter: blur(1px); pointer-events: none; background: radial-gradient(circle, color-mix(in srgb, var(--neon) 18%, transparent), transparent 68%); }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
+@media print {
+  body { background: #fff !important; }
+  nav, footer, button, a[href^="mailto:"], .shaddie-widget { display: none !important; }
+  .certificate-sheet { border-width: 8px !important; min-height: 180mm !important; page-break-inside: avoid; }
+  main { padding: 0 !important; margin: 0 auto !important; max-width: 100% !important; }
 }

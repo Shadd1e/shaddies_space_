@@ -1,0 +1,2 @@
+'use client';import {useEffect} from 'react';
+export default function RestorePreviewProgress(){useEffect(()=>{const answer=localStorage.getItem('automatex_first_win');if(!answer)return;fetch('/api/automatex/progress',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({lessonId:'M1-L1',answer})}).then(r=>{if(r.ok)localStorage.removeItem('automatex_first_win')}).catch(()=>{});},[]);return null}

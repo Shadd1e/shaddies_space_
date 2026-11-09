@@ -6,6 +6,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { createClient } from "@/lib/supabase/client";
 
+function safeNextPath() { try { const value = new URLSearchParams(window.location.search).get('next'); return value && value.startsWith('/') && !value.startsWith('//') ? value : '/learn'; } catch { return '/learn'; } }
+
 export default function SignInPage() {
   const [mode, setMode] = useState("signin");
   const [stage, setStage] = useState("details");
@@ -24,7 +26,7 @@ export default function SignInPage() {
       const supabase = createClient();
       const { error: authError } = await supabase.auth.signInWithPassword({ email: email.trim(), password });
       if (authError) throw authError;
-      window.location.assign("/learn");
+      window.location.assign(safeNextPath());
     } catch (err) {
       setError(true); setMessage(err.message || "We could not sign you in. Check your email and password.");
     } finally { setLoading(false); }
@@ -72,7 +74,7 @@ export default function SignInPage() {
         setMessage(data.error || "Your account was created. Sign in with your new password.");
         return;
       }
-      window.location.assign(data.redirectTo || "/learn");
+      window.location.assign(safeNextPath());
     } catch (err) { setError(true); setMessage(err.message || "That code could not be verified. Request a new one and try again."); }
     finally { setLoading(false); }
   }
@@ -107,6 +109,6 @@ export default function SignInPage() {
     </form>}
 
     {message && <p role="status" className="text-sm mt-5" style={{ color: error ? "#d65b5b" : "var(--neon)" }}>{message}</p>}
-    <p className="text-xs leading-relaxed mt-8" style={{ color: "var(--muted)" }}>By continuing, you agree to our <Link href="/privacy" className="underline" style={{ color: "var(--neon)" }}>privacy notice</Link>. Your account works across Shaddies.Space and its learning experience.</p>
+    <p className="text-xs leading-relaxed mt-8" style={{ color: "var(--muted)" }}>By continuing, you agree to our <Link href="/privacy" className="underline" style={{ color: "var(--neon)" }}>site privacy notice</Link>. For Automate X, also read the <Link href="/automatex/privacy" className="underline" style={{ color: "var(--neon)" }}>course privacy note</Link>. Your account works across Shaddies.Space and its learning experience.</p>
   </div></div></main><Footer /></>;
 }

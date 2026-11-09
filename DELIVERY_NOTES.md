@@ -38,3 +38,23 @@ Brevo sending cannot be live-tested until the owner supplies the API key and con
 - The atomic project enquiry rate-limit function passed its smoke test.
 - A full Next.js production build was **not** run: npm registry access timed out in the preparation environment. The supplied `package-lock.json` predates the Supabase packages now declared in `package.json`; run `npm install` once to regenerate it, then run `npm run build`. Do not run `npm ci` until the lockfile has been regenerated.
 - End-to-end Brevo delivery, real mailbox receipt, and full browser session testing remain pending owner credentials and a configured sender.
+
+
+## Automate-X course integration — 9 November 2026
+
+Implemented in the source archive:
+
+- Learner dashboard, placement quiz, eight module/lesson flows, quick checks, module tests, final exam, profile setup, printable certificate, public verification, support form and Shaddie chat.
+- Server-side grading and question selection; the browser does not receive module/exam answer keys. Final exam timing is server-controlled at 45 minutes with a three-minute reconnect window and voided-attempt handling.
+- Course-cycle handling after an under-60% final result; module results and account are retained while lesson progress resets for a fresh course run.
+- Two inactivity reminders, unsubscribe confirmation, discount-expiry email, Shaddie/support rate limits, CSRF-origin checks and baseline security headers.
+- Validated source DOCX extraction: 8 modules, 40 lesson cards, 160 standard questions, 24 scenario questions, 60 exam questions and 10 placement questions. The extractor completed successfully against the supplied course bank.
+- Added course SQL migrations `20261109150000_automatex_course.sql` and `20261109151000_automatex_guardrails_patch.sql`, plus an idempotent service-role loader.
+
+Not yet completed / requires owner action:
+
+- Apply the two course-specific migrations to the intended Supabase project, then run `npm run automatex:extract` and `npm run automatex:load`. The existing main-site migrations must not be rerun.
+- A full Next.js build and live browser/API integration test were not run in the preparation environment because `node_modules` was not installed. JavaScript/Python syntax checks and the DOCX extraction/count checks passed. Run `npm ci` and `npm run build` locally before deployment.
+- Add server-side Supabase, DeepSeek, Brevo and cron secrets to `.env.local` / Vercel settings. Never expose service-role or provider keys in browser code.
+- Paystack and discount redemption are not yet integrated; discount codes are generated and displayed but need checkout validation before they can be redeemed.
+- Add the legal business name, confirm certificate branding, supply WhatsApp support details if desired, and obtain Nigerian privacy-lawyer review of the privacy draft before launch.

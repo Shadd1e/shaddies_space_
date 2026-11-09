@@ -2,14 +2,9 @@
 
 This project remains on Next.js 14.2.35, App Router, JavaScript and Tailwind CSS. The existing homepage and its visual identity are retained.
 
-## Reserved for the separate Automate-X course build
+## Automate-X course integration
 
-- `/automatex/*` — reserved; no main-site pages are created here.
-- `/verify/*` — reserved; no main-site pages are created here.
-- `/api/automatex/*` — reserved; no main-site API routes are created here.
-- `ax_*` database namespace — reserved; this project does not create course tables.
-
-The previous cohort/marketing page formerly at `/automatex` has been moved to `/courses/automatex` so the course namespace is available for the course app.
+The learner-facing course is now implemented under `/automatex/course`, with its API under `/api/automatex/*`, public certificate verification under `/verify/*`, and isolated Supabase tables in the `ax_*` namespace. It reuses the existing Supabase Auth session and shared site components. See `AUTOMATEX_SETUP.md` for the course routes, database migration order, loader commands, guardrails and release checklist. The previous cohort marketing page remains at `/courses/automatex`.
 
 ## Main-site routes added
 
@@ -22,7 +17,7 @@ The previous cohort/marketing page formerly at `/automatex` has been moved to `/
 
 ## Environment variables
 
-Copy `.env.example` to `.env.local` and fill the values. Never commit `.env.local`. Run `npm install` once after receiving this update to synchronize `package-lock.json` with the Supabase dependencies already declared in `package.json`; the build environment used to prepare this archive could not reach the npm registry.
+Copy `.env.example` to `.env.local` and fill the values. Never commit `.env.local`. The package lock includes the Supabase dependencies. Run `npm ci` from the project root before building.
 
 - `NEXT_PUBLIC_SUPABASE_URL`
 - `NEXT_PUBLIC_SUPABASE_ANON_KEY` (use the modern publishable key value)
@@ -56,7 +51,7 @@ The applied migrations create these main-site tables:
 - `public.project_inquiries` — private project enquiry submissions. Anonymous visitors can insert only; there is no public read policy.
 - `public.email_verification_challenges` — HMAC-hashed, expiring, single-use registration challenges. Direct access is denied to `anon` and `authenticated`; trusted server code uses the Supabase service role.
 
-It does not create any `ax_*` tables. The course builder can create its own schema independently.
+The two Automate-X migrations create the isolated `ax_*` course schema. Apply them only by following `AUTOMATEX_SETUP.md`; do not rerun the existing main-site foundation migrations.
 
 ## Custom registration and Brevo email
 
@@ -86,6 +81,6 @@ The idea explorer sends its answers to `/api/project-planner`. The route calls D
 - Test registration, expired codes, incorrect codes, rate limits, duplicate account handling, password sign-in and enquiry email delivery.
 - Add rate limiting and bot protection to public forms before production exposure.
 - Confirm the final contact email, support process, business name and certificate branding with the course owner.
-- Run `npm install` once to install the Supabase packages and refresh `package-lock.json` (the preparation environment could not reach npm).
+- Run `npm ci` to install the locked dependencies.
 - Run `npm run build` after installing dependencies and configuring environment variables. A production build has not yet been run.
-- Add rate limiting and bot protection to the public enquiry and project-planner endpoints before production exposure.
+- Review the course-specific release checklist in `AUTOMATEX_SETUP.md` before production exposure.

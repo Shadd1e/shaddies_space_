@@ -33,3 +33,12 @@ After copying this update, run `npm install` once to install `@supabase/ssr` and
 - Added database migrations for private verification challenges, serialized email/IP rate limiting, and an explicit deny policy for direct browser access.
 - Added required Brevo, Supabase server credential, site URL and verification-secret variables to `.env.example`.
 - Live Brevo delivery is not yet enabled: the account API key and verified sender address must be supplied in the hosting environment.
+
+
+## Automate-X course integration
+
+- Added `/automatex`, `/automatex/course/*`, `/automatex/privacy`, `/verify/[certificateId]`, and `/api/automatex/*` learner and automation routes.
+- Added the isolated `ax_*` schema and two course migrations for RLS, private question/answer storage, transactional test/exam grading, certificate verification, and rate limits.
+- Added the validated DOCX extractor and service-role loader under `scripts/`; the private DOCX and generated answer-key JSON are Git-ignored.
+- Added `AUTOMATEX_SETUP.md` with setup, migration, import, deployment and release-testing instructions.
+- The course migrations are not yet applied to the live Supabase project and the bank has not yet been imported.

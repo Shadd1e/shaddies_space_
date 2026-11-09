@@ -1,0 +1,4 @@
+import ShaddieWidget from '../../ShaddieWidget';
+import {redirect,notFound} from 'next/navigation';import Navbar from '@/components/Navbar';import {createClient} from '@/lib/supabase/server';import TestRunner from '../../TestRunner';
+export const dynamic='force-dynamic';
+export default async function ModuleTestPage({params}){const mid=params.moduleId;if(!/^M[1-8]$/.test(mid))notFound();const sb=await createClient();const {data:{user}}=await sb.auth.getUser();if(!user)redirect('/sign-in?next=%2Fautomatex%2Fcourse');return <><Navbar/><main className="page-shell max-w-3xl mx-auto px-5 sm:px-6 pt-28 pb-20"><h1 className="text-3xl font-bold">Module {mid.slice(1)} test</h1><p className="mt-3 mb-8" style={{color:'var(--muted)'}}>A short check of what you have learned. Take your time.</p><TestRunner moduleId={mid}/></main><ShaddieWidget/></>}
