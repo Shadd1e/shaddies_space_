@@ -1,2 +1,5 @@
-import Navbar from '@/components/Navbar';import Footer from '@/components/Footer';import IntroPreview from '../IntroPreview';import preview from '@/data/automatex-preview.json';
-export default function IntroPage(){return <><Navbar/><main className="page-shell max-w-3xl mx-auto px-5 sm:px-6 pt-28 pb-20"><p className="eyebrow">AUTOMATE X · YOUR FIRST FIVE MINUTES</p><h1 className="text-3xl sm:text-4xl font-bold mt-2 mb-6">Start with one small win.</h1><IntroPreview preview={preview}/></main><Footer/></>}
+import { redirect } from "next/navigation";
+
+export default function IntroPage() {
+  redirect("/automatex#first-class");
+}

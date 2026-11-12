@@ -1,44 +1,36 @@
 {
   "primer": [
     {
-      "title": "A website",
-      "body": "A website is a set of pages stored on a computer called a server. When you open one, your browser asks that server for the page and shows you what comes back."
+      "title": "Artificial intelligence",
+      "body": "AI is software that can recognise patterns, work with language, make predictions and help with decisions. It is useful, but it can still make mistakes."
     },
     {
-      "title": "A server",
-      "body": "A server is a computer that stays switched on and answers requests from other computers. That is why a website still works when your own laptop is off."
+      "title": "Automation",
+      "body": "Automation is when a task or process happens with less manual effort. It follows rules and instructions so the same work does not have to be repeated by a person every time."
     },
     {
-      "title": "An API",
-      "body": "An API is a doorway that lets one program ask another for something, like ‘send this SMS’ or ‘give me this customer’s orders’. You can think of it as a menu: it lists what you may ask for."
-    },
-    {
-      "title": "A database",
-      "body": "A database is an organised store of information, like a spreadsheet that apps can read and update instantly. Orders, customers and messages live there."
-    },
-    {
-      "title": "An AI model",
-      "body": "An AI model is software trained on huge amounts of text that predicts a helpful reply to what you type. It can be wrong, so we always check what it says."
+      "title": "When they work together",
+      "body": "AI can handle tasks that need interpretation; automation can move the result to the next step. Together, they can help a business respond, organise information or complete routine work."
     }
   ],
   "lesson": {
     "id": "M1-L1",
     "module_id": "M1",
     "position": 1,
-    "title": "The idea trap",
-    "reading_minutes": 7,
-    "body_md": "A few years ago, having a clever business idea involving software was rare, because building it needed a team. Today you can type a request into an AI tool and get a working first version in an afternoon. That is exciting, but it has a side effect: everyone else can do it too.\n\nPicture a student in Yaba who thinks, “I will build a bot that takes orders on WhatsApp for food vendors.” By the time they open their laptop, other people in Abuja, Accra and Nairobi have typed almost the same sentence. When an idea can be copied in a day, the idea itself stops being the thing that protects you or earns you money.\n\nThis does not mean ideas are useless. A good idea tells you where to look. It just isn’t enough on its own. The rest of this module is about what is enough.\n\n**In simple terms:** If everyone can build the same thing quickly, then having the idea first is not an advantage.\n\n**Go deeper:** Economists call this a collapse in the cost of production. When production becomes cheap, value moves to what stays scarce: trust, reliability, distribution and knowing the customer’s problem deeply.",
-    "story_title": "Two friends, one idea",
-    "story_md": "In a scenario where two friends both think of the same idea, a WhatsApp ordering bot for food vendors, one of them spends three months planning the perfect version, with a logo, a pitch and a long list of features. The other builds a rough version in one week and gives it to three vendors on their street. By the time the first friend is ready to launch, the second already knows which vendors forget to reply, which customers send voice notes instead of text, and which feature nobody uses.",
-    "story_lesson": "The idea was identical. What separated them was how fast each one met a real customer.",
-    "check_prompt": "Why does a good idea protect you less than it used to?",
+    "title": "Where AI meets automation",
+    "reading_minutes": 5,
+    "body_md": "Imagine a small shop receiving orders online. Automation can record each order and send a confirmation. AI can help interpret a customer's question or sort an unclear message. The two can work together, while a person remains responsible for important decisions.",
+    "story_title": "A shop after closing time",
+    "story_md": "A customer sends a message asking whether a particular size is available. An AI tool can interpret the question. An automated workflow can check the stock system and send the result back, even when the shop is closed.",
+    "story_lesson": "AI helps interpret the request. Automation connects the steps. The useful result comes from designing the whole process well.",
+    "check_prompt": "What is the main difference between AI and automation?",
     "check_options": {
-      "A": "AI tools only work for experts",
-      "B": "Anyone can build the same thing quickly with the same tools",
-      "C": "Customers no longer want new things",
-      "D": "Ideas are now illegal to sell"
+      "A": "They are two names for the same thing",
+      "B": "AI can interpret or generate; automation carries out a defined process",
+      "C": "Automation always needs AI to work",
+      "D": "AI only works inside robots"
     },
     "check_answer": "B",
-    "check_explanation": "Because the tools are shared, building is cheap, so the advantage moves to other things."
+    "check_explanation": "AI can interpret or generate information. Automation carries out a process, often using rules and connected tools."
   }
 }

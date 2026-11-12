@@ -1,2 +1,68 @@
-'use client';import {useState} from 'react';
-export default function IntroPreview({preview}){const [step,setStep]=useState(0);const [answer,setAnswer]=useState('');const [feedback,setFeedback]=useState('');const [won,setWon]=useState(false);const items=[...preview.primer,{title:'The idea trap',body:preview.lesson.body_md}];const item=items[step];function check(){const correct=answer===preview.lesson.check_answer;if(correct){localStorage.setItem('automatex_first_win',answer);setWon(true);setFeedback('That’s right. You have completed your first quick win.');}else setFeedback('Not quite. Have another look at the lesson and try again.');}return <div className="rounded-2xl border p-5 sm:p-7" style={{borderColor:'var(--border)',background:'var(--surface)'}}><p className="eyebrow">A QUICK START · {Math.min(step+1,items.length)} OF {items.length}</p><h2 className="text-2xl font-bold mt-2">{item.title||'A few ideas before we begin'}</h2><p className="whitespace-pre-wrap leading-7 mt-4">{item.body||item}</p>{step===items.length-1&&preview.lesson.story_title&&<aside className="rounded-xl border p-4 mt-5" style={{borderColor:'var(--border)'}}><b>{preview.lesson.story_title}</b><p className="text-sm leading-6 mt-2">{preview.lesson.story_md}</p><p className="text-sm font-semibold mt-2">{preview.lesson.story_lesson}</p></aside>}{step===items.length-1&&!won&&<div className="mt-7"><h3 className="font-semibold">{preview.lesson.check_prompt}</h3><div className="grid gap-2 mt-3">{Object.entries(preview.lesson.check_options).map(([k,v])=><label key={k} className="flex gap-3 rounded-lg border p-3" style={{borderColor:answer===k?'var(--neon)':'var(--border)'}}><input type="radio" name="first-check" checked={answer===k} onChange={()=>setAnswer(k)}/><span>{v}</span></label>)}</div><button className="btn btn-primary mt-4" disabled={!answer} onClick={check}>Check my answer</button></div>}{feedback&&<p className="mt-4 text-sm" style={{color:'var(--muted)'}}>{feedback}</p>}{won?<a href="/sign-in?next=%2Fautomatex%2Fcourse" className="btn btn-primary inline-flex mt-5">Save my progress and continue</a>:<div className="flex justify-between mt-6"><button className="text-sm" disabled={step===0} onClick={()=>setStep(s=>s-1)} style={{color:'var(--muted)'}}>Back</button>{step<items.length-1&&<button className="btn btn-primary" onClick={()=>setStep(s=>s+1)}>Next</button>}</div>}</div>}
+'use client';
+
+import { useState } from "react";
+
+export default function IntroPreview({ preview }) {
+  const [answer, setAnswer] = useState("");
+  const [feedback, setFeedback] = useState("");
+  const [won, setWon] = useState(false);
+
+  function check() {
+    const correct = answer === preview.lesson.check_answer;
+    if (correct) {
+      localStorage.setItem("automatex_first_win", answer);
+      setWon(true);
+      setFeedback("Correct. You have completed the introduction.");
+    } else {
+      setFeedback("Not quite. Revisit the explanations and try again.");
+    }
+  }
+
+  return (
+    <div className="intro-class">
+      <div className="intro-concepts">
+        {preview.primer.map((item, index) => (
+          <article className="intro-concept" key={item.title}>
+            <span className="intro-concept-index">0{index + 1}</span>
+            <div><h3>{item.title}</h3><p>{item.body}</p></div>
+          </article>
+        ))}
+      </div>
+
+      <article className="intro-example">
+        <div className="intro-example-copy">
+          <p className="eyebrow mb-3">PUT IT IN CONTEXT</p>
+          <h3>{preview.lesson.title}</h3>
+          <p>{preview.lesson.body_md}</p>
+        </div>
+        <aside className="intro-story">
+          <span className="eyebrow">A SIMPLE EXAMPLE</span>
+          <strong>{preview.lesson.story_title}</strong>
+          <p>{preview.lesson.story_md}</p>
+          <b>{preview.lesson.story_lesson}</b>
+        </aside>
+      </article>
+
+      <section className="intro-check">
+        <div>
+          <p className="eyebrow mb-3">QUICK KNOWLEDGE CHECK</p>
+          <h3>{preview.lesson.check_prompt}</h3>
+        </div>
+        <div className="intro-options">
+          {Object.entries(preview.lesson.check_options).map(([key, value]) => (
+            <label key={key} className={`intro-option ${answer === key ? "is-selected" : ""}`}>
+              <input type="radio" name="first-check" value={key} checked={answer === key} onChange={() => { setAnswer(key); setFeedback(""); }} />
+              <span className="intro-option-key">{key}</span><span>{value}</span>
+            </label>
+          ))}
+        </div>
+        {feedback && <p className="intro-feedback" role="status">{feedback}</p>}
+        {won ? (
+          <a href="/sign-in?next=%2Fautomatex%2Fcourse" className="btn btn-primary inline-flex mt-5">Save my progress and continue <span aria-hidden="true" className="ml-2">↗</span></a>
+        ) : (
+          <button className="btn btn-primary mt-5" disabled={!answer} onClick={check}>Check answer</button>
+        )}
+      </section>
+    </div>
+  );
+}
