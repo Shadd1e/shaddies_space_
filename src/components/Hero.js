@@ -34,8 +34,8 @@ export default function Hero() {
           Learn to build with AI and automation, or work with us to turn an idea into a system that works.
         </motion.p>
         <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 3.3, duration: .6 }} className="flex flex-col sm:flex-row gap-4 max-w-xl">
-          <Link href="/learn" className="btn btn-primary">I WANT TO LEARN</Link>
-          <Link href="/build-with-me" className="btn btn-secondary">LET'S BUILD TOGETHER</Link>
+          <Link href="/learn" className="btn btn-primary">I want to learn.</Link>
+          <Link href="/build-with-me" className="btn btn-secondary">Let's build for you</Link>
         </motion.div>
       </div>
     </motion.section>
